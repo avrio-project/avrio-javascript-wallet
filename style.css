@@ -36,6 +36,9 @@ body,html{
         margin-left: calc(50vw - 450px);
         margin-right: calc(50vw - 450px);
     }
+    div#sendFunds .card, div#receiveFunds .card{
+        width: 900px;
+    }
 }
 
 
@@ -193,6 +196,12 @@ a.button.primary,button.button.primary:hover{
     text-align: left;
 }
 
+.big-btn{
+    min-width: 120px;
+    width: 100%;
+    text-align: center;
+}
+
 /* Icons */
 .fixicon{
     position: relative;
@@ -260,4 +269,114 @@ a.button.primary,button.button.primary:hover{
 .transaction-label{
     float: right;
     margin-top: 0px;
+}
+
+/* Inputs */
+
+.inputGroup{
+    display: flex;
+    flex-direction: row;
+}
+
+select.amountSuffix,div.amountSuffix{
+    height: 50px;
+    margin: 0px;
+    border: 0.5px solid rgb(var(--grey));
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-left: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    padding-right: 8px;
+}
+
+div.amountSuffix{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+div.amountSuffix svg{
+    color: rgb(var(--text-grey));
+    height: 20px;
+}
+
+
+select.amountSuffix::-ms-expand {
+    display: none;
+}
+
+input.amount{
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    outline: none;
+    border: 0.5px solid rgb(var(--grey));
+    border-right: 0px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+input.amount::after{
+    content: 'AIO';
+}
+
+input.address{
+    width: 100%;
+    height: 50px;
+}
+
+/* Verification badge */
+.idbox{
+    background-color: rgba(var(--success),0.2);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    color: rgb(var(--success));
+}
+
+.idbox svg{
+    color: rgb(var(--success));
+    margin-right: 18px;
+}
+
+.flex-col{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Send funds */
+#sendFunds.hide,#receiveFunds.hide{
+    display: none;
+}
+
+#sendFunds,#receiveFunds{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(var(--grey),0.7);
+    display: flex;
+    justify-content: center;
+    
+}
+
+#sendFunds .card,#receiveFunds .card{
+    width: calc(100vw - 60px);
+    height: 450px;
+    margin-top: calc(50vh - 225px);
+
 }
