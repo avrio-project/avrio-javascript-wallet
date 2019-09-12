@@ -16,7 +16,75 @@
                 </div>
 
             </div>
+        <div id="sendFunds" class="hide">
+                <div class="card">
+                    <h3>Send funds</h3>
+                    <div class="top-right">
+                        <a id="sendFundsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
+                    </div>
+                    <br>
+                    <h5 class="grey"><b>Amount</b></h5>
+                    <div class="inputGroup">
+                        <input type="text" class="amount" id="sendAmount" autocomplete="off" value="0">
+                        <select class="amountSuffix" id="sendCurrency" autocomplete="off">
+                            <option value="io" selected="selected">AIO</option>
+                            <option value="gbp">GBP</option>
+                        </select> 
+                    </div>
+                    <h5 class="grey" id="sendAmountEquiv"></h5>
+                    <br>
+                    <h5 class="grey"><b>Recipient Address</b></h5>
+                    <div class="inputGroup">
+                        <input id="sendRecipient" type="text" class="amount" autocomplete="off">
+                        <div class="amountSuffix" onclick='document.getElementById("sendRecipient").value = ""; document.getElementById("sendRecipient").focus();'>
+                            <i data-feather="x-circle"></i>
+                        </div> 
+                    </div>
 
+                    <br>
+
+                    <!-- FOR THE FUTURE: 'Verified user' box
+<div class="idbox">
+<div class="flex-col">
+<i data-feather="user-check"></i>
+</div>
+<div class="flex-col">
+<h4><b>Verified user</b> &nbsp;&nbsp;Signed by <i>https://google.co.uk</i></h4>
+</div>
+</div>
+-->
+                    <br><br>
+                    <button class="button big-btn" href="#">Send</button>
+                </div>
+            </div>
+
+
+            <div id="receiveFunds" class="hide">
+                <div class="card">
+                    <div class="top-right">
+                        <a id="receiveFundsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
+                    </div>
+                    <br>
+                    <h3>Receive funds</h3>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4 class="grey">Transactions</h4>
+                <br>
+                <div class="transaction">
+                    <div class="transaction-icon">
+                        <i class="fixicon" data-feather="arrow-up-right"></i> 
+                    </div>
+                    <div>
+                        <h4><b>JohnDoe189</b></h4>
+                        <h5 class="grey">Yesturday, 16:35</h5>
+                    </div>
+                    <div class="transaction-right">
+                        <h4 class="danger nobottom"><b>-0.002 AIO</b></h4>
+                        <h5 class="grey transaction-label">-&pound;5.67</h5>
+                    </div>
+                </div>
             <div class="card">
                 <h5 class="grey nobottom"><i class="fixicon" data-feather="credit-card"></i> Ariel's Wallet</h5>
                 <h1><script type="text/javascript">
