@@ -16,7 +16,7 @@ function refresh() {
         addTransaction(txns[i]);
     }
 }
-balaio = Math.floor(Math.random() * 500) + 1  // getBalance(publicKey);
+balaio = Math.floor(Math.random() * 500) + 1 ; // getBalance(publicKey);
 
 balgbp = aioprice * balaio;
 
