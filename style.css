@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+/* Color scheme (R,G,B) -feel free to tinker! */
+:root {
+    --primary: 18,135,249;
+    --secondary: 17,189,249;
+    --grey: 192,202,208;
+    --text-grey: 164,177,186;
+    --danger: 254,132,116;
+    --success: 1,197,170;
+    --bg: 239,243,244;
+}
+
+body{
+    font-family: 'Lato', sans-serif;
+    background-color: rgb(var(--bg),0.4);
+}
+
+body,html{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.main{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+@media only screen and (min-width: 960px) {
+    .main{
+        margin-left: calc(50vw - 450px);
+        margin-right: calc(50vw - 450px);
+    }
+}
+
+
+.topper{
+    background-color: rgb(var(--primary));
+    padding: 30px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Cards */
+
+.card{
+    position: relative;
+    background-color: #fff;
+    transition: box-shadow 0.2s;
+    box-shadow: 0px 0px 5px rgb(var(--grey),0.8);
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+.card:hover{
+    box-shadow: 0px 0px 9px rgb(var(--grey),0.8);
+}
+
+.card.card-top{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+
+.center{
+    text-align: center;
+}
+
+.logo{
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+    margin-top: 5px;
+}
+
+.logo-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+/* Typography */
+
+h1{
+    font-size: 40px;
+    font-weight: 300;
+}
+
+h2{
+    font-size: 32px;
+    font-weight: 300;
+}
+
+h3{
+    font-size: 24px;
+    font-weight: 300;
+}
+
+h4{
+    font-size: 18px;
+    font-weight: 300;
+}
+
+h5{
+    font-size: 15px;
+    font-weight: 300;
+}
+
+p{
+    font-size: 12px;
+    font-weight: 300;
+}
+
+h1,h2,h3,h4,h5,p{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+small{
+    font-size: 0.6em;
+}
+
+h5.nobottom{
+    margin-bottom: 0px;
+}
+
+/* Buttons */
+
+a.button,button.button{
+    color: #fff;
+    background-color: rgb(var(--secondary));
+    text-decoration: none;
+    outline: none;
+    border: 0px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 16px;
+    border-radius: 20px;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+a.button,button.button:hover{
+    background-color: rgba(var(--secondary),0.73);
+}
+
+a.button.primary,button.button.primary{
+    background-color: rgb(var(--primary));
+}
+
+a.button.primary,button.button.primary:hover{
+    background-color: rgba(var(--primary),0.73);
+}
+
+.grey{
+    color: rgb(var(--text-grey));
+}
+
+.discreet-button{
+    color: rgb(var(--text-grey));
+    padding: 5px;
+    padding-right: 7px;
+    padding-left: 7px;
+    border-radius: 3px;
+    transition: background 0.3s,color 0.3s;
+    cursor: pointer;
+}
+
+.discreet-button:hover{
+    color: #fff;
+    background-color: rgb(var(--grey));
+}
+
+.top-right{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+.send-btn{
+    min-width: 120px;
+    text-align: left;
+}
+
+/* Icons */
+.fixicon{
+    position: relative;
+    top: 1.5px;
+    height: 1em;
+}
+
+/* Transactions */
+.transaction{
+    width: 100%;
+    margin-bottom: 20px;
+    transition: transform .2s;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.transaction:hover{
+    transform: scale(1.008);
+}
+
+.transaction .transaction-right{
+    position: absolute;
+    top: 0px;
+    right: 30px;
+}
+
+.transaction-icon{
+    width: 55px;
+    height: 55px;
+    margin-right: 15px;
+    border-radius: 3px;
+    background-color: rgba(var(--danger),0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.transaction-icon svg{
+    height: 35px;
+    width: 35px;
+    margin: 10.2px;
+    color: rgb(var(--danger));
+    position: relative;
+    top: -0.25px;
+}
+
+.transaction-icon.green{
+    background-color: rgba(var(--success),0.2);
+}
+.transaction-icon.green svg{
+    color: rgb(var(--success));
+}
+
+.danger{
+    color: rgb(var(--danger));
+}
+
+.success{
+    color: rgb(var(--success));
+}
+
+.transaction-label{
+    float: right;
+    margin-top: 0px;
+}
