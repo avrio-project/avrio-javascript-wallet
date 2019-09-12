@@ -16,7 +16,8 @@ function refresh() {
         addTransaction(txns[i]);
     }
 }
-balaio = getBalance(publicKey);
+balaio = Math.floor(Math.random() * 500) + 1  // getBalance(publicKey);
+
 balgbp = aioprice * balaio;
 
 function setNode(node) {
