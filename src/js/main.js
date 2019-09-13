@@ -1,22 +1,22 @@
 // Copywrite 2019-2020 The Avrio Project Devs
-var balfiat = 0; // set defult balance to 0
-var balaio = 0; 
-var nodeip;
-var aioprice = 0.80; // static price of £0.80 untill we get a exchange (as this is arround the target value)
-var currencyCodes= ["gbp","usd"];
-var currencyCode = "gbp" //The current currency code
+let balfiat = 0; // set defult balance to 0
+let balaio = 0; 
+let nodeip;
+let aioprice = 0.80; // static price of £0.80 untill we get a exchange (as this is arround the target value)
+let currencyCodes= ["gbp","usd"];
+let currencyCode = "gbp" //The current currency code
 
-var currencySymbols = {"gbp":"£","usd":"$"}; 
+let currencySymbols = {"gbp":"£","usd":"$"}; 
 
 balaio = Math.floor(((Math.random() * 50) /403) *403.23435) + 1 ; // getBalance(publicKey);
-//var keys = getKeys();
-//var publicKey = keys[0];
-//var privateKey = keys[1];/
-var refreshInterval = 60 * 2.5; // refresh every 2 and a half mins
+//let keys = getKeys();
+//let publicKey = keys[0];
+//let privateKey = keys[1];/
+let refreshInterval = 60 * 2.5; // refresh every 2 and a half mins
 //function refresh() {
-    //var keysT = getKeys();
+    //let keysT = getKeys();
     //getBalance(keysT[0]);
-    //var txns = getTxns(keysT[0]);
+    //let txns = getTxns(keysT[0]);
     //for (let i = 0; i <= txns.lenght(); i++) {
         //addTransaction(txns[i]);
     //}
@@ -40,15 +40,15 @@ function setNode(node) {
 
 function addTransaction(type, party, timestamp, amountio) {
     amountfiat = amountio * aioprice;
-    var a = new Date(timestamp * 1000);
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
-    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+    let a = new Date(timestamp * 1000);
+    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    let year = a.getFullYear();
+    let month = months[a.getMonth()];
+    let date = a.getDate();
+    let hour = a.getHours();
+    let min = a.getMinutes();
+    let sec = a.getSeconds();
+    let time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
     if (type == "sent") {
         document.getElementById("transactionList").innerHTML = '<div class="transaction"> <div class="transaction-icon"> <i class="fixicon" data-feather="arrow-up-right"></i> </div><div> <h4><b>' + party + '</b></h4> <h5 class="grey">' + time + '</h5> </div><div class="transaction-right"> <h4 class="danger nobottom"><b>-' + amountio + ' AIO</b></h4> <h5 class="grey transaction-label">-' + currencySymbols[currencyCode] + amountfiat + ' ' + currencyCode.toUpperCase() + '</h5> </div></div>' + document.getElementById("transactionList").innerHTML;
     } else {
@@ -60,13 +60,13 @@ function addTransaction(type, party, timestamp, amountio) {
 
 //Displays fiat currency code anywhere with class 'currencyCodeDisplay'
 currencyCodeDisplay = document.getElementsByClassName('currencyCodeDisplay');
-for (var i = 0; i < currencyCodeDisplay.length; i++) {
+for (let i = 0; i < currencyCodeDisplay.length; i++) {
     currencyCodeDisplay[i].innerHTML = currencyCode.toUpperCase();
 }
 
 //Displays fiat currency code anywhere with class 'currencySymbolDisplay'
 currencySymbolDisplay = document.getElementsByClassName('currencySymbolDisplay');
-for (var i = 0; i < currencySymbolDisplay.length; i++) {
+for (let i = 0; i < currencySymbolDisplay.length; i++) {
     currencySymbolDisplay[i].innerHTML = currencySymbols[currencyCode];
 }
 
