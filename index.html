@@ -43,7 +43,7 @@
                     <br>
                     <h5 class="grey"><b>Amount</b></h5>
                     <div class="inputGroup">
-                        <input type="text" class="amount" id="sendAmount" autocomplete="off" value="0">
+                        <input type="text" onkeypress="validate(event,this)" class="amount" id="sendAmount" autocomplete="off" value="0">
                         <select class="amountSuffix" id="sendCurrency" autocomplete="off">
                             <option value="io" selected="selected">AIO</option>
                             <option value="fiat" class="currencyCodeDisplay"></option>
@@ -64,9 +64,19 @@
                     <h5 class="grey"><b>Estimated Fee (<i><span id="feeestimate"></span></i> AIO)<a class="discreet-button" id="toggleAdvancedOptions" style="float: right;"><i class="fixicon" data-feather="settings"></i> Advanced options</a></b></h5>
                     
                     <div id="advancedOptions">
-                        <input id="gasPrice" placeholder="Gas price" type="text" class="advanced" autocomplete="off">
-                        <input id="maxGas" placeholder="Max gas" type="text" class="advanced" autocomplete="off">
-                        <input id="message" placeholder="Message" type="text" class="advanced" autocomplete="off">
+                        <div>
+                            <h5 class="grey">Gas price</h5>
+                            <input id="gasPrice" onkeypress="validate(event,this)" placeholder="Gas price" type="text" class="advanced" autocomplete="off" value="0.001">
+                        </div>
+                        <div>
+                            <h5 class="grey">Max gas</h5>
+                            <input id="maxGas" onkeypress="validate(event,this)" placeholder="Max gas" type="text" class="advanced" autocomplete="off" value="50">
+                        </div>
+                        <div>
+                            <h5 class="grey">Message</h5>
+                            <input id="message" placeholder="Message" type="text" class="advanced" autocomplete="off">
+                        </div>
+
                     </div>
 
                     <br>
@@ -83,6 +93,7 @@
                     -->
                     <br><br>
                     <button class="button big-btn" href="#">Send</button>
+                    <h5 style="color: rgb(var(--danger)); margin-top: 20px;"><b id="sendWarning">Warning, estimated gas exceeds max gas!</b></h5>
                 </div>
             </div>
 
