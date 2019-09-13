@@ -3,12 +3,13 @@ var balfiat = 0; // set defult balance to 0
 var balaio = 0; 
 var nodeip;
 var aioprice = 0.80; // static price of £0.80 untill we get a exchange (as this is arround the target value)
-var currencyCodes[] = {
-    "gbp",
-    "usd",
-
-}
+var currencyCodes= ["gbp","usd"];
 var currencyCode = "gbp" //The current currency code
+balfiat = aioprice * balaio;
+balfiat = aioprice * balaio;
+balaio = Math.floor(((Math.random() * 50) /403) *403.23435) + 1 ; // getBalance(publicKey);
+document.getElementById("aiobal").innerHTML = balaio;
+document.getElementById("fiatbal").innerHTML = balfiat; 
 var keys = getKeys();
 var publicKey = keys[0];
 var privateKey = keys[1];
@@ -21,10 +22,7 @@ function refresh() {
         addTransaction(txns[i]);
     }
 }
-balfiat = aioprice * balaio;
-balaio = Math.floor(Math.random() * 500) + 1 ; // getBalance(publicKey);
-document.getElementById("aiobal").innerHTML = balaio;
-document.getElementById("fiatbal").innerHTML = balfiat; 
+
 
 function setNode(node) {
     nodeip = node;
@@ -47,4 +45,10 @@ function addTransaction(type, party, time, amountio) {
     } else {
         transactionList += '<div class="transaction"> <div class="transaction-icon green"> <i class="fixicon" data-feather="arrow-down-left"></i> </div><div> <h4><b>' + party + '</b></h4> <h5 class="grey">' + time + '</h5> </div><div class="transaction-right"> <h4 class="success"><b>+' + amountio + ' AIO</b></h4> <h5 class="grey transaction-label">&pound;4' + amountgbp + '</h5> </div></div></div>';
     }
+}
+
+//Displays fiat currency code in 'send transaction'
+currencyCodeDisplay = document.getElementsByClassName('currencyCodeDisplay');
+for (var i = 0; i < currencyCodeDisplay.length; i++) {
+    currencyCodeDisplay[i].innerHTML = currencyCode;
 }
