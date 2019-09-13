@@ -24,7 +24,7 @@ var refreshInterval = 60 * 2.5; // refresh every 2 and a half mins
 
 balfiat = aioprice * balaio;
 document.getElementById("aiobal").innerHTML = balaio;
-document.getElementById("fiatbal").innerHTML = (Math.round(balfiat*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
+document.getElementById("fiatbal").innerHTML = (Math.round(balfiat*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
 function setNode(node) {
     nodeip = node;
     //refresh()
