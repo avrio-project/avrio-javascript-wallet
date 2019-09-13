@@ -19,13 +19,9 @@
             </div>
 
             <div class="card">
-                <h5 class="grey nobottom"><i class="fixicon" data-feather="credit-card"></i> Ariel's Wallet</h5>
-                <h1><script type="text/javascript">
-        document.write(balaio)
-      </script> <small>AIO</small></h1>
-                <h4 class="grey"><b>&pound;<script type="text/javascript">
-        document.write(balaio)
-      </script></b></h4>
+                <h5 class="grey nobottom"><i class="fixicon" data-feather="credit-card"></i> <span id="walletname"></h5>
+                <h1><span id="aiobal"></span><small>AIO</small></h1>
+                <h4 class="grey"><b>&pound;<span id ="balfiat"></b></h4>
                 <br>
                 <button id="sendBtn" class="button send-btn" href="#"><i class="fixicon" data-feather="arrow-up-right"></i> Send</button>&nbsp;
                 <button id="receiveBtn" class="button primary send-btn" href="#"><i class="fixicon" data-feather="arrow-down-left"></i> Receive</button>
@@ -49,7 +45,7 @@
                         <input type="text" class="amount" id="sendAmount" autocomplete="off" value="0">
                         <select class="amountSuffix" id="sendCurrency" autocomplete="off">
                             <option value="io" selected="selected">AIO</option>
-                            <option value="gbp">GBP</option>
+                            <option value="fiat">GBP</option>
                         </select> 
                     </div>
                     <h5 class="grey" id="sendAmountEquiv"></h5>
@@ -94,33 +90,6 @@
                 <h4 class="grey">Transactions</h4>
                 <br>
                 <div id="transactionList">
-                    <div class="transaction">
-                        <div class="transaction-icon">
-                            <i class="fixicon" data-feather="arrow-up-right"></i> 
-                        </div>
-                        <div>
-                            <h4><b>JohnDoe189</b></h4>
-                            <h5 class="grey">Yesturday, 16:35</h5>
-                        </div>
-                        <div class="transaction-right">
-                            <h4 class="danger nobottom"><b>-0.002 AIO</b></h4>
-                            <h5 class="grey transaction-label">-&pound;5.67</h5>
-                        </div>
-                    </div>
-
-                    <div class="transaction">
-                        <div class="transaction-icon green">
-                            <i class="fixicon" data-feather="arrow-down-left"></i> 
-                        </div>
-                        <div>
-                            <h4><b>Aviro Exchange</b></h4>
-                            <h5 class="grey">Thursday, 7:55</h5>
-                        </div>
-                        <div class="transaction-right">
-                            <h4 class="success"><b>+0.0193 AIO</b></h4>
-                            <h5 class="grey transaction-label">&pound;40.22</h5>
-                        </div>
-                    </div>
                 </div>
 
             </div>

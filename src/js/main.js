@@ -1,9 +1,14 @@
 // Copywrite 2019-2020 The Avrio Project Devs
-var balgbp = 0; // set defult balance to 0
-var balaio = 0;
+var balfiat = 0; // set defult balance to 0
+var balaio = 0; 
 var nodeip;
 var aioprice = 0.80; // static price of £0.80 untill we get a exchange (as this is arround the target value)
+var currencyCodes[] = {
+    "gbp",
+    "usd",
 
+}
+var currencyCode = "gbp" //The current currency code
 var keys = getKeys();
 var publicKey = keys[0];
 var privateKey = keys[1];
@@ -16,9 +21,10 @@ function refresh() {
         addTransaction(txns[i]);
     }
 }
-balaio = 134.2; //Math.floor(Math.random() * 500) + 1 ; // getBalance(publicKey);
-
-balgbp = aioprice * balaio;
+balfiat = aioprice * balaio;
+balaio = Math.floor(Math.random() * 500) + 1 ; // getBalance(publicKey);
+document.getElementById("aiobal").innerHTML = balaio;
+document.getElementById("fiatbal").innerHTML = balfiat; 
 
 function setNode(node) {
     nodeip = node;
@@ -26,11 +32,13 @@ function setNode(node) {
 }
 
 
+
+
+transactionList = document.getElementById("transactionList").innerHTML;
+
 //Adds transaction to list    
 //type: 'sent' or 'received', party (str) = username of recipient, time (str) = time description, amountio(float) = amount in AIO
 //amountgbp = amountio * aioprice; 
-
-transactionList = document.getElementById("transactionList").innerHTML;
 
 function addTransaction(type, party, time, amountio) {
     amountgbp = amountio * aioprice;
