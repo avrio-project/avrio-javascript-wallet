@@ -12,9 +12,9 @@ window.onload = function() {
 function sendAmountChange() {
     document.getElementById("sendAmount").value = document.getElementById("sendAmount").value.replace(/[^0-9\.]+/g, '');
     if (document.getElementById("sendCurrency").options[document.getElementById("sendCurrency").selectedIndex].value == "io") {
-        document.getElementById("sendAmountEquiv").innerHTML = "(&pound; " + ((document.getElementById("sendAmount").value) * 0.88) + ")";
+        document.getElementById("sendAmountEquiv").innerHTML = "(" + currencySymbols[currencyCode] + ((document.getElementById("sendAmount").value) * aioprice) + ")";
     } else {
-        document.getElementById("sendAmountEquiv").innerHTML = "(" + ((document.getElementById("sendAmount").value) * 0.88) + " AIO)";
+        document.getElementById("sendAmountEquiv").innerHTML = "(" + ((document.getElementById("sendAmount").value) * aioprice) + " AIO)";
     }
 }
 
@@ -22,12 +22,12 @@ function sendAmountChange() {
 function sendCurrencyChange() {
     if (document.getElementById("sendCurrency").options[document.getElementById("sendCurrency").selectedIndex].value == "io") {
         temp = document.getElementById("sendAmount").value;
-        document.getElementById("sendAmount").value = (document.getElementById("sendAmount").value) / 0.88;
-        document.getElementById("sendAmountEquiv").innerHTML = "(&pound; " + temp + ")";
+        document.getElementById("sendAmount").value = (document.getElementById("sendAmount").value) / aioprice;
+        document.getElementById("sendAmountEquiv").innerHTML = "(" + currencySymbols[currencyCode] + temp + ")";
     } else {
-        document.getElementById("sendAmountEquiv").innerHTML = "(" + ((document.getElementById("sendAmount").value) * 0.88) + " AIO)";
+        document.getElementById("sendAmountEquiv").innerHTML = "(" + ((document.getElementById("sendAmount").value) * aioprice) + " AIO)";
         temp = document.getElementById("sendAmount").value;
-        document.getElementById("sendAmount").value = (document.getElementById("sendAmount").value) * 0.88;
+        document.getElementById("sendAmount").value = (document.getElementById("sendAmount").value) * aioprice;
         document.getElementById("sendAmountEquiv").innerHTML = "(" + temp + " AIO)";
     }
 }

@@ -3,25 +3,26 @@
     <head>
         <title>Aviro wallet</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <script src="src/js/main.js"></script>
-        <script src="components.js"></script>
+        <link rel="stylesheet" type="text/css" href="src/css/style.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">  
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
     <body>
 
         <div class="main">
             <div class="card card-top">
                 <div class="logo-group">
-                    <img class="logo" src="logo.png">
+                    <img class="logo" src="img/logo.png">
                     <h3>Aviro</h3>
                 </div>
 
             </div>
 
             <div class="card">
-                <h5 class="grey nobottom"><i class="fixicon" data-feather="credit-card"></i> <span id="walletname"></h5>
-                <h1><span id="aiobal"></span><small>AIO</small></h1>
-                <h4 class="grey"><b>&pound;<span id ="balfiat"></b></h4>
+                <h5 class="grey nobottom"><i class="fixicon" data-feather="credit-card"></i> <span id="walletname"></span></h5>
+                <h1><span id="aiobal"></span> <small>AIO</small></h1>
+                <h4 class="grey"><b><span class="currencySymbolDisplay"></span><span id="fiatbal"></span> <span class="currencyCodeDisplay"></span></b></h4>
                 <br>
                 <button id="sendBtn" class="button send-btn" href="#"><i class="fixicon" data-feather="arrow-up-right"></i> Send</button>&nbsp;
                 <button id="receiveBtn" class="button primary send-btn" href="#"><i class="fixicon" data-feather="arrow-down-left"></i> Receive</button>
@@ -45,7 +46,7 @@
                         <input type="text" class="amount" id="sendAmount" autocomplete="off" value="0">
                         <select class="amountSuffix" id="sendCurrency" autocomplete="off">
                             <option value="io" selected="selected">AIO</option>
-                            <option value="fiat" class="currencyCodeDisplay">GBP</option>
+                            <option value="fiat" class="currencyCodeDisplay"></option>
                         </select> 
                     </div>
                     <h5 class="grey" id="sendAmountEquiv"></h5>
@@ -59,17 +60,25 @@
                     </div>
 
                     <br>
+                    <h5 class="grey"><b>Estimated Fee (<i><span id=feeestimate></span></i> AIO)</b></h5>
+                    <div id="advancedOptions" style="display: none;">
+                        <input id="gasPrice" type="text" class="amount" autocomplete="off">
+                        <input id="maxGas" type="text" class="amount" autocomplete="off">
+                        <input id="message" type="text" class="amount" autocomplete="off">
+                    </div>
 
-                    <!--  FOR THE FUTURE: 'Verified user' box
-<div class="idbox">
-<div class="flex-col">
-<i data-feather="user-check"></i>
-</div>
-<div class="flex-col">
-<h4><b>Verified user</b> &nbsp;&nbsp;Signed by <i>https://google.co.uk</i></h4>
-</div>
-</div>
--->
+                    <br>
+
+                    <!--  FOR THE FUTURE: 'Verified user' box 
+                    <div class="idbox">
+                        <div class="flex-col">
+                            <i data-feather="user-check"></i>
+                        </div>
+                        <div class="flex-col">
+                            <h4><b>Verified user</b> &nbsp;&nbsp;Signed by <i>https://google.co.uk</i></h4>
+                        </div>
+                    </div>
+                    -->
                     <br><br>
                     <button class="button big-btn" href="#">Send</button>
                 </div>
@@ -99,6 +108,8 @@
         </div>
 
         <script src="https://unpkg.com/feather-icons"></script>
+        <script src="src/js/main.js"></script>
+        <script src="src/js/components.js"></script>
         <script>
             feather.replace();
         </script>
