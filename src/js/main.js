@@ -38,8 +38,17 @@ function setNode(node) {
 //type: 'sent' or 'received', party (str) = username of recipient, time (str) = time description, amountio(float) = amount in AIO
 //amountgbp = amountio * aioprice; 
 
-function addTransaction(type, party, time, amountio) {
+function addTransaction(type, party, timestamp, amountio) {
     amountfiat = amountio * aioprice;
+    var a = new Date(timestamp * 1000);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
     if (type == "sent") {
         document.getElementById("transactionList").innerHTML = '<div class="transaction"> <div class="transaction-icon"> <i class="fixicon" data-feather="arrow-up-right"></i> </div><div> <h4><b>' + party + '</b></h4> <h5 class="grey">' + time + '</h5> </div><div class="transaction-right"> <h4 class="danger nobottom"><b>-' + amountio + ' AIO</b></h4> <h5 class="grey transaction-label">-' + currencySymbols[currencyCode] + amountfiat + ' ' + currencyCode.toUpperCase() + '</h5> </div></div>' + document.getElementById("transactionList").innerHTML;
     } else {
@@ -48,8 +57,6 @@ function addTransaction(type, party, time, amountio) {
     feather.replace();
 }
 
-
-  
 
 //Displays fiat currency code anywhere with class 'currencyCodeDisplay'
 currencyCodeDisplay = document.getElementsByClassName('currencyCodeDisplay');
