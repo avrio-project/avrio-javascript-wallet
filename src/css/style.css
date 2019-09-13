@@ -346,10 +346,13 @@ input.advanced{
     padding-left: 10px;
     padding-right: 10px;
     font-size: 18px;
-    width: 30%;
-    margin-right: 3.33%;
+    width: 100%;
 }
 
+#advancedOptions div{
+    margin-right: 2.33%;
+    width: 31%;
+}
 
 #advancedOptions{
     display: flex;
@@ -397,9 +400,15 @@ input.advanced{
     
 }
 
-#sendFunds .card,#receiveFunds .card{
+#receiveFunds .card{
     width: calc(100vw - 60px);
     height: 530px;
     margin-top: calc(50vh - 225px);
 
+}
+
+#sendFunds .card{
+    width: calc(100vw - 60px);
+    height: 600px;
+    margin-top: calc(50vh - 300px);
 }
