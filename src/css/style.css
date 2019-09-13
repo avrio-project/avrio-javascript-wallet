@@ -335,6 +335,29 @@ input.address{
     height: 50px;
 }
 
+
+input.advanced{
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    outline: none;
+    border: 0.5px solid rgb(var(--grey));
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+    width: 30%;
+    margin-right: 3.33%;
+}
+
+
+#advancedOptions{
+    display: flex;
+    flex-direction: row;
+    display: none;
+    margin-top: 20px;
+}
+
 /* Verification badge */
 .idbox{
     background-color: rgba(var(--success),0.2);
@@ -376,7 +399,7 @@ input.address{
 
 #sendFunds .card,#receiveFunds .card{
     width: calc(100vw - 60px);
-    height: 450px;
+    height: 530px;
     margin-top: calc(50vh - 225px);
 
 }

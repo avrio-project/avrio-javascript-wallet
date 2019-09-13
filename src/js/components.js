@@ -5,6 +5,7 @@ window.onload = function() {
     document.getElementById("sendFundsClose").addEventListener("click", closeSendModal);
     document.getElementById("receiveFundsClose").addEventListener("click", closeReceiveModal);
     document.getElementById("receiveBtn").addEventListener("click", receiveModal);
+    document.getElementById("toggleAdvancedOptions").addEventListener("click", toggleAdvanced);
     sendCurrencyChange();
 }
 
@@ -50,4 +51,17 @@ function receiveModal() {
 //Close modal to receive transactions
 function closeReceiveModal() {
     document.getElementById('receiveFunds').classList.add('hide');
+}
+
+//Show or hide advanced options in 'send transaction'
+advancedEnabled = false;
+function toggleAdvanced(){
+    if(advancedEnabled == false){
+        advancedEnabled = true;
+        document.getElementById('advancedOptions').style.display = 'flex';
+    }
+    else{
+        advancedEnabled = false;
+        document.getElementById('advancedOptions').style.display = 'none';    
+    }
 }

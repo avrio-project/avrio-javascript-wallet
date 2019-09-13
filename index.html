@@ -60,11 +60,13 @@
                     </div>
 
                     <br>
-                    <h5 class="grey"><b>Estimated Fee (<i><span id=feeestimate></span></i> AIO)</b></h5>
-                    <div id="advancedOptions" style="display: none;">
-                        <input id="gasPrice" type="text" class="amount" autocomplete="off">
-                        <input id="maxGas" type="text" class="amount" autocomplete="off">
-                        <input id="message" type="text" class="amount" autocomplete="off">
+
+                    <h5 class="grey"><b>Estimated Fee (<i><span id="feeestimate"></span></i> AIO)<a class="discreet-button" id="toggleAdvancedOptions" style="float: right;"><i class="fixicon" data-feather="settings"></i> Advanced options</a></b></h5>
+                    
+                    <div id="advancedOptions">
+                        <input id="gasPrice" placeholder="Gas price" type="text" class="advanced" autocomplete="off">
+                        <input id="maxGas" placeholder="Max gas" type="text" class="advanced" autocomplete="off">
+                        <input id="message" placeholder="Message" type="text" class="advanced" autocomplete="off">
                     </div>
 
                     <br>
