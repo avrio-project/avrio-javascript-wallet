@@ -15,16 +15,18 @@
             <div class="card card-top">
                 <div class="logo-group">
                     <img class="logo" src="img/logo.png">
+                    
                     <h3>Aviro</h3>
                 </div>
-
             </div>
 
             <div class="card">
                 <h5 class="grey nobottom"><i class="fixicon" data-feather="credit-card"></i> <span id="walletname"></span></h5>
                 <h1><span id="aiobal"></span> <small>AIO</small></h1>
                 <h4 class="grey"><b><span class="currencySymbolDisplay"></span><span id="fiatbal"></span> <span class="currencyCodeDisplay"></span></b></h4>
+                
                 <br>
+
                 <button id="sendBtn" class="button send-btn" href="#"><i class="fixicon" data-feather="arrow-up-right"></i> Send</button>&nbsp;
                 <button id="receiveBtn" class="button primary send-btn" href="#"><i class="fixicon" data-feather="arrow-down-left"></i> Receive</button>
 
@@ -32,17 +34,20 @@
                     <a class="discreet-button"><i class="fixicon" data-feather="edit-3"></i></a>
                     <a class="discreet-button"><i class="fixicon" data-feather="settings"></i></a>
                 </div>
-
             </div>
 
             <div id="sendFunds" class="hide">
                 <div class="card">
                     <h3>Send funds</h3>
+                    
                     <div class="top-right">
                         <a id="sendFundsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
                     </div>
+                    
                     <br>
+                    
                     <h5 class="grey"><b id="amountLabel">Amount</b></h5>
+                    
                     <div class="inputGroup">
                         <input type="text" onkeypress="validate(event,this)" class="amount" id="sendAmount" autocomplete="off" value="0">
                         <select class="amountSuffix" id="sendCurrency" autocomplete="off">
@@ -50,9 +55,13 @@
                             <option value="fiat" class="currencyCodeDisplay"></option>
                         </select> 
                     </div>
+                    
                     <h5 class="grey" id="sendAmountEquiv"></h5>
+                    
                     <br>
+
                     <h5 class="grey"><b>Recipient Address</b></h5>
+
                     <div class="inputGroup">
                         <input id="sendRecipient" type="text" class="amount" autocomplete="off">
                         <div class="amountSuffix" onclick='document.getElementById("sendRecipient").value = ""; document.getElementById("sendRecipient").focus();'>
@@ -77,11 +86,10 @@
                             <h5 class="grey">Message</h5>
                             <input id="message" placeholder="Message" type="text" class="advanced" autocomplete="off">
                         </div>
-
                     </div>
 
                     <br>
-                    
+
                     <!--  FOR THE FUTURE: 'Verified user' box 
                     <div class="idbox">
                         <div class="flex-col">
@@ -92,6 +100,7 @@
                         </div>
                     </div>
                     -->
+
                     <br><br>
                     <button class="button big-btn" id="sendTransactionButton" href="#">Send</button>
                     <h5 style="color: rgb(var(--danger)); margin-top: 20px;"><b id="sendWarning">Warning, estimated gas exceeds max gas!</b></h5>
@@ -106,7 +115,7 @@
                     </div>
                     <br>
                     <h3>Receive funds</h3>
-                    <h4>Recive address: <i>ariel.hurdle</i></h4>
+                    <h4>Receive address: <i>ariel.hurdle</i></h4>
                     <div id="qrcode"></div>
                     <script type="text/javascript">
                         new QRCode(document.getElementById("qrcode"), "null");
@@ -121,10 +130,7 @@
                 <br>
                 <div id="transactionList">
                 </div>
-
             </div>
-
-
 
         </div>
 
