@@ -7,7 +7,7 @@ let currencyCodes= ["gbp","usd"];
 let currencyCode = "gbp" //The current currency code
 
 let currencySymbols = {"gbp":"£","usd":"$"}; 
-
+let username = "";
 balaio = Math.floor(((Math.random() * 50) /403) *403.23435) + 1 ; // getBalance(publicKey);
 //let keys = getKeys();
 //let publicKey = keys[0];
@@ -70,3 +70,4 @@ for (let i = 0; i < currencySymbolDisplay.length; i++) {
     currencySymbolDisplay[i].innerHTML = currencySymbols[currencyCode];
 }
 
+document.getElementById("address").innerHTML = username;
