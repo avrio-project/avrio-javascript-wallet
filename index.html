@@ -105,6 +105,15 @@
                     </div>
                     <br>
                     <h3>Receive funds</h3>
+                    <h4>Recive address: <i>ariel.hurdle</i></h4>
+                    var qrcode = new QRCode("test", {
+                     text: ariel.hurdle,
+                     width: 128,
+                     height: 128,
+                     colorDark : "#000000",
+                     colorLight : "#ffffff",
+                     correctLevel : QRCode.CorrectLevel.H
+                    });
                 </div>
             </div>
             
@@ -123,6 +132,8 @@
         <script src="https://unpkg.com/feather-icons"></script>
         <script src="src/js/main.js"></script>
         <script src="src/js/components.js"></script>
+        <script src="src/js/jquery.min.js"></script>
+        <script src="src/js/qrcode.js"></script>
         <script>
             feather.replace();
         </script>
