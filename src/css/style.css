@@ -326,6 +326,19 @@ input.amount{
     border-bottom-right-radius: 0px;
 }
 
+input.amount.error{
+    border: 0.5px solid rgb(var(--danger));
+    border-right: 0px;
+}
+
+input.amount.error+select.amountSuffix{
+    border: 0.5px solid rgb(var(--danger));
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-left: 0px;
+}
+
 input.amount::after{
     content: 'AIO';
 }
