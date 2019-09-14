@@ -106,14 +106,12 @@
                     <br>
                     <h3>Receive funds</h3>
                     <h4>Recive address: <i>ariel.hurdle</i></h4>
-                    var qrcode = new QRCode("test", {
-                     text: ariel.hurdle,
-                     width: 128,
-                     height: 128,
-                     colorDark : "#000000",
-                     colorLight : "#ffffff",
-                     correctLevel : QRCode.CorrectLevel.H
-                    });
+                    <div id="qrcode"></div>
+                    <script type="text/javascript">
+                        new QRCode(document.getElementById("qrcode"), "null");
+                        qrcode.clear(); // clear the code.
+                        qrcode.makeCode("ariel.hurdle"); // make another code.
+                    </script>
                 </div>
             </div>
             
