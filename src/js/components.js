@@ -18,9 +18,30 @@ function sendAmountChange() {
     document.getElementById("sendAmount").value = document.getElementById("sendAmount").value.replace(/[^0-9\.]+/g, '');
     if (document.getElementById("sendCurrency").options[document.getElementById("sendCurrency").selectedIndex].value == "io") {
         document.getElementById("sendAmountEquiv").innerHTML = "(" + currencySymbols[currencyCode] + ((document.getElementById("sendAmount").value) * aioprice) + ")";
+        if(balaio < document.getElementById("sendAmount").value){
+            document.getElementById('sendTransactionButton').disabled = true;
+            document.getElementById('sendAmount').classList.add('error');
+            document.getElementById('amountLabel').innerHTML = 'Amount <span style="color:rgb(var(--danger))">(Insufficient funds!)</span>';
+        }
+        else{
+            document.getElementById('sendAmount').classList.remove('error');
+            document.getElementById('sendTransactionButton').disabled = false;
+            document.getElementById('amountLabel').innerHTML = 'Amount';
+        }
     } else {
         document.getElementById("sendAmountEquiv").innerHTML = "(" + ((document.getElementById("sendAmount").value) * aioprice) + " AIO)";
+        if(balfiat < document.getElementById("sendAmount").value){
+            document.getElementById('sendTransactionButton').disabled = true;
+            document.getElementById('sendAmount').classList.add('error');
+            document.getElementById('amountLabel').innerHTML = 'Amount <span style="color:rgb(var(--danger))">(Insufficient funds!)</span>';
+        }
+        else{
+            document.getElementById('sendAmount').classList.remove('error');
+            document.getElementById('sendTransactionButton').disabled = false;
+            document.getElementById('amountLabel').innerHTML = 'Amount';
+        }
     }
+    
 }
 
 //Called whenever user changes the sending currency in 'send funds'
