@@ -10,80 +10,136 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
     <body>
-<script>
-function gocreatewallet() {
-  var x = document.getElementById("createwallet");
-  var text = "";
-  var i;
-  for (i = 0; i < x.length ;i++) {
-    text += x.elements[i].value + "<br>";
-  }
-  document.getElementById("test").innerHTML = text;
-}
-function goviafile() {
-    var x = document.getElementById("viafile");
-    let key = x.elements[0].value;
-    var file = x.elements[1].value;
-    var reader = new FileReader();
-    reader.readAsText(file, "UTF-8");
-    reader.onload = function (evt) {
-          document.getElementById("test").innerHTML = evt.target.result;
-      }
-}
-function goviapk() {
-  var x = document.getElementById("viapk");
-  var text = "";
-  var i;
-  for (i = 0; i < x.length ;i++) {
-    text += x.elements[i].value + "<br>";
-  }
-  document.getElementById("test").innerHTML = text;
-}
-</script>
+
+        <script>
+            function gocreatewallet() {
+                var x = document.getElementById("createwallet");
+                var text = "";
+                var i;
+                for (i = 0; i < x.length ;i++) {
+                    text += x.elements[i].value + "<br>";
+                }
+                document.getElementById("test").innerHTML = text;
+            }
+            function goviafile() {
+                var x = document.getElementById("viafile");
+                let key = x.element[0].value;
+                var file = x.element[1].files[0];
+                var reader = new FileReader();
+                reader.readAsText(file, "UTF-8");
+                reader.onload = function (evt) {
+                    document.getElementById("test").innerHTML = evt.target.result;
+                }
+            }
+            function goviapk() {
+                var x = document.getElementById("viapk");
+                var text = "";
+                var i;
+                for (i = 0; i < x.length ;i++) {
+                    text += x.elements[i].value + "<br>";
+                }
+                document.getElementById("test").innerHTML = text;
+            }
+        </script>
         <div class="main">
+
             <div class="card card-top">
                 <div class="logo-group">
                     <img class="logo" src="img/logo.png">
-                    
+
                     <h3>Aviro</h3>
                 </div>
             </div>
+
             <div class="card">
-                <h1> Create Wallet: </h1>
-                
+                <center>
+                    <h2>Load wallet</h2>
+                    <br>
+                    <button style="width: 30%;" class="button" id="sendTransactionButton" href="#"><i class="fixicon" data-feather="upload"></i> Choose Wallet file</button>
+                    <br><br><br>
+                    <h5 class="grey">Enter your pin</h5>
+                    <div class="pincode-group">
+                        <input id="pin1" class="pincodeInput" type="text">
+                        <input id="pin2" class="pincodeInput" type="text">
+                        <input id="pin3" class="pincodeInput" type="text">
+                        <input id="pin4" class="pincodeInput" type="text">
+                        <input id="pin5" class="pincodeInput" type="text">
+                        <input id="pin6" class="pincodeInput" type="text">
+                    </div>
+
+                    <br>
+
+                    <button style="width: 50%;" class="button primary"  href="#">Load</button>
+
+                </center>
+            </div>
+
+            <div class="card">
+                <center>
+                    <h2> Create Wallet: </h2>
+                </center>
                 <br>
                 <form id="createwallet">
-                    <p class="grey"> Choose Wallet name: </p> <input type='text'>
-                    <p class="grey"> Choose your pin: </p> <input minlength="6" maxlength="6" type='number'>
+                    <h5 class="grey"> Choose Wallet name: </h5> 
+                    <div class="inputGroup">
+                        <input id="walletName" type="text" class="amount" autocomplete="off">
+                        <div class="amountSuffix" onclick='document.getElementById("walletName").value = ""; document.getElementById("walletName").focus();'>
+                            <i data-feather="x-circle"></i>
+                        </div> 
+                    </div>
+
+                    <br>
+
+                    <h5 class="grey"> Choose your pin: </h5> 
+
+                    <div class="pincode-group choose">
+                        <input id="pinc1" class="pincodeInput" type="text">
+                        <input id="pinc2" class="pincodeInput" type="text">
+                        <input id="pinc3" class="pincodeInput" type="text">
+                        <input id="pinc4" class="pincodeInput" type="text">
+                        <input id="pinc5" class="pincodeInput" type="text">
+                        <input id="pinc6" class="pincodeInput" type="text">
+                    </div>
+
                     <p><b>NOTE:</b> A pin must be 6 numbers long and is used to unlock your wallet, if you foget your pin you will loose access to your wallet <u><i>forever</i></u></p>
                     <br><br>
                 </form>
-                <button onclick="gocreatewallet()">Go</button>
+
+                <center>
+                    <button onclick="gocreatewallet()" style="width: 50%;" class="button primary"  href="#">Create</button>
+                </center>
+
             </div>
+
             <div class="card">
-                <h1> Load Wallet File: </h1>
-                
-                <br>
-                <form id="viafile">
-                    <p class="grey"> Choose Wallet file: </p> <input type='file'>
-                    <p class="grey"> Enter your pin: </p> <input minlength="6" maxlength="6" type='number'>
-                    <br><br>
-                </form>
-                <button onclick="goviafile()">Go</button>
-            </div>
-            <div class="card">
-                <h1> Load Wallet From a Private Key: </h1>
-                
+                <center>
+                    <h2> Load Wallet From a Private Key: </h2>
+                </center>
                 <br>
                 <form id="viapk">
-                    <p class="grey"> Enter your private key: </p> <input minlength="32" maxlength="32" type='text'>
-                    <br><br>
+                    <h5 class="grey">Enter your private key: </h5> 
+                    <div class="inputGroup">
+                        <input id="privKey" type="text" class="amount" autocomplete="off" minlength="32" maxlength="32">
+                        <div class="amountSuffix" onclick='document.getElementById("privKey").value = ""; document.getElementById("privKey").focus();'>
+                            <i data-feather="x-circle"></i>
+                        </div> 
+                    </div>
                 </form>
-                <button onclick="goviapk()">Go</button>
                 <!--pk should be 32 bytes long, example: 0C28FCA386C7A227600B2FE50B7CAE11EC86D3BF1FBE471BE89827E19D72AA1D -->
+                <br>
+                <center>
+                    <button onclick="goviapk()" style="width: 50%;" class="button primary"  href="#">Create</button>
+                </center>
             </div>
         </div>
         <p id="test"></p>
         <script src="https://unpkg.com/feather-icons"></script>
-     </body>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="src/js/main.js"></script>
+        <script src="src/js/components.js"></script>
+        <script>
+            pinCodeStart();
+            feather.replace();
+        </script>
+    </body>
 </html>
