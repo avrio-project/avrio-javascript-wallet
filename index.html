@@ -10,7 +10,35 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
     <body>
-
+<script>
+function gocreatewallet() {
+  var x = document.getElementById("createwallet");
+  var text = "";
+  var i;
+  for (i = 0; i < x.length ;i++) {
+    text += x.elements[i].value + "<br>";
+  }
+  document.getElementById("test").innerHTML = text;
+}
+function goviafile() {
+  var x = document.getElementById("viafile");
+  var text = "";
+  var i;
+  for (i = 0; i < x.length ;i++) {
+    text += x.elements[i].value + "<br>";
+  }
+  document.getElementById("test").innerHTML = text;
+}
+function goviapk() {
+  var x = document.getElementById("viapk");
+  var text = "";
+  var i;
+  for (i = 0; i < x.length ;i++) {
+    text += x.elements[i].value + "<br>";
+  }
+  document.getElementById("test").innerHTML = text;
+}
+</script>
         <div class="main">
             <div class="card card-top">
                 <div class="logo-group">
@@ -23,38 +51,38 @@
                 <h1> Create Wallet: </h1>
                 
                 <br>
-                <form>
+                <form id="createwallet">
                     <p class="grey"> Choose Wallet name: </p> <input type='text'>
                     <p class="grey"> Choose your pin: </p> <input minlength="6" maxlength="6" type='number'>
                     <p><b>NOTE:</b> A pin must be 6 numbers long and is used to unlock your wallet, if you foget your pin you will loose access to your wallet <u><i>forever</i></u></p>
                     <br><br>
-                    <input type="submit" value="Submit">
                 </form>
-
+                <button onclick="gocreatewallet()">Go</button>
             </div>
             <div class="card">
                 <h1> Load Wallet File: </h1>
                 
                 <br>
-                <form>
+                <form id="viafile">
                     <p class="grey"> Choose Wallet file: </p> <input type='file'>
                     <p class="grey"> Enter your pin: </p> <input minlength="6" maxlength="6" type='number'>
                     <br><br>
-                    <input type="submit" value="Submit">
                 </form>
+                <button onclick="goviafile()">Go</button>
             </div>
             <div class="card">
                 <h1> Load Wallet From a Private Key: </h1>
                 
                 <br>
-                <form>
+                <form id="viapk">
                     <p class="grey"> Enter your private key: </p> <input minlength="32" maxlength="32" type='text'>
                     <br><br>
-                    <input type="submit" value="Submit"> 
                 </form>
+                <button onclick="goviapk()">Go</button>
                 <!--pk should be 32 bytes long, example: 0C28FCA386C7A227600B2FE50B7CAE11EC86D3BF1FBE471BE89827E19D72AA1D -->
             </div>
         </div>
+        <p id="test"></p>
         <script src="https://unpkg.com/feather-icons"></script>
      </body>
 </html>
