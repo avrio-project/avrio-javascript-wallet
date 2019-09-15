@@ -21,13 +21,14 @@ function gocreatewallet() {
   document.getElementById("test").innerHTML = text;
 }
 function goviafile() {
-  var x = document.getElementById("viafile");
-  var text = "";
-  var i;
-  for (i = 0; i < x.length ;i++) {
-    text += x.elements[i].value + "<br>";
-  }
-  document.getElementById("test").innerHTML = text;
+    var x = document.getElementById("viafile");
+    let key = x.element[1].value;
+    var file = x.element[0].files[0];
+    var reader = new FileReader();
+    reader.readAsText(file, "UTF-8");
+    reader.onload = function (evt) {
+          document.getElementById("test").innerHTML = evt.target.result;
+      }
 }
 function goviapk() {
   var x = document.getElementById("viapk");
