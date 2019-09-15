@@ -13,7 +13,7 @@
         <script>
             function gocreatewallet() {
                 var x = document.getElementById("createwallet");
-                var pin;
+                var pin = document.getElementById("createWalletPincode").value;
                 var i;
                 for (i = 1; i < x.length ;i++) {
                     pin += x.elements[i].value;
