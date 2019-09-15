@@ -68,11 +68,11 @@ function updateEstimate(){
     const maxGas = document.getElementById('maxGas').value;
     let message = document.getElementById('message').value;
     
-    if (message.length > 30) {
-        message = message.substring(0,30);
+    if (message.length > 100) {
+        message = message.substring(0,100);
         document.getElementById('message').value = message;
     }
-    let gasEstimation = ((2000 + (30 * 60)) / 100);
+    let gasEstimation = ((2000 + (message.length * 60)) / 100);
     const estimation = gasEstimation * gasPrice;
     if (maxGas < gasEstimation) {
         document.getElementById('sendWarning').style.display = 'block'; 
