@@ -23,7 +23,7 @@ function gocreatewallet() {
 function goviafile() {
     var x = document.getElementById("viafile");
     let key = x.elements[0].value;
-    var file = x.elements[1].files[0];
+    var file = x.elements[1].value;
     var reader = new FileReader();
     reader.readAsText(file, "UTF-8");
     reader.onload = function (evt) {
