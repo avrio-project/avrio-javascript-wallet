@@ -73,7 +73,7 @@ function updateEstimate(){
         document.getElementById('message').value = message;
     }
     
-    const estimation = (30 + message.length) * gasPrice;
+    const estimation = ((2000 + (message.length * 60) / 100) * gasPrice;
     
     if (maxGas < estimation) {
         document.getElementById('sendWarning').style.display = 'block'; 
