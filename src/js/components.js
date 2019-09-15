@@ -74,7 +74,7 @@ function updateEstimate(){
     }
     let gasEstimation = ((2000 + (message.length * 60)) / 100);
     const estimation = gasEstimation * gasPrice;
-    if (maxGas < estimation) {
+    if (maxGas < gasEstimation) {
         document.getElementById('sendWarning').style.display = 'block'; 
         document.getElementById('sendTransactionButton').disabled = true;
     } else {
