@@ -13,10 +13,10 @@
         <script>
             function gocreatewallet() {
                 var x = document.getElementById("createwallet");
-                var text = "";
+                var pin;
                 var i;
-                for (i = 0; i < x.length ;i++) {
-                    text += x.elements[i].value + "<br>";
+                for (i = 1; i < x.length ;i++) {
+                    text += x.elements[i].value;
                 }
                 document.getElementById("test").innerHTML = text;
             }
@@ -127,7 +127,7 @@
                 <!--pk should be 32 bytes long, example: 0C28FCA386C7A227600B2FE50B7CAE11EC86D3BF1FBE471BE89827E19D72AA1D -->
                 <br>
                 <center>
-                    <button onclick="goviapk()" style="width: 50%;" class="button primary"  href="#">Create</button>
+                    <button onclick="goviapk()" style="width: 50%;" class="button primary"  href="#">Load</button>
                 </center>
             </div>
         </div>
