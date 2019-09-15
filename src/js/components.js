@@ -1,6 +1,6 @@
 let advancedEnabled = false;
 
-window.onload = function() {
+function loadDashboard() {
     document.getElementById('sendAmount').addEventListener('input', sendAmountChange);
     document.getElementById('sendCurrency').addEventListener('change', sendCurrencyChange);
     document.getElementById('sendBtn').addEventListener('click', sendModal);
@@ -67,7 +67,7 @@ function updateEstimate(){
     const gasPrice = document.getElementById('gasPrice').value;
     const maxGas = document.getElementById('maxGas').value;
     let message = document.getElementById('message').value;
-    
+
     if (message.length > 100) {
         message = message.substring(0,100);
         document.getElementById('message').value = message;
@@ -81,7 +81,7 @@ function updateEstimate(){
         document.getElementById('sendWarning').style.display = 'none';
         document.getElementById('sendTransactionButton').disabled = false;
     }
-    
+
     document.getElementById('gaspriceaio').innerHTML = estimation;
 }
 
@@ -120,10 +120,10 @@ function toggleAdvanced(){
 function validate(ev,that) {
     if (!ev)
         ev = window.event;
-    
+
     if ((that.value + '').split('.')[1].length > 3)
         return ev.preventDefault();
-    
+
     if ((countCharacters('.', that.value) > 0) && (ev.key == '.'))
         return ev.preventDefault();
 
@@ -133,5 +133,76 @@ function validate(ev,that) {
 
 //Counts occurences of specific character in a string
 function countCharacters(char, str) {
-  return str.split('').reduce((acc, ch) => ch === char ? acc + 1: acc, 0);
+    return str.split('').reduce((acc, ch) => ch === char ? acc + 1: acc, 0);
+}
+
+
+//Manages the pincode input on index.html
+function pinCodeStart(){
+
+    document.getElementById('pin1').addEventListener('keyup', updatePinCode);
+    document.getElementById('pin2').addEventListener('keyup', updatePinCode);
+    document.getElementById('pin3').addEventListener('keyup', updatePinCode);
+    document.getElementById('pin4').addEventListener('keyup', updatePinCode);
+    document.getElementById('pin5').addEventListener('keyup', updatePinCode);
+    document.getElementById('pin6').addEventListener('keyup', updatePinCode);
+    
+    document.getElementById('pinc1').addEventListener('keyup', updatePinCodeC);
+    document.getElementById('pinc2').addEventListener('keyup', updatePinCodeC);
+    document.getElementById('pinc3').addEventListener('keyup', updatePinCodeC);
+    document.getElementById('pinc4').addEventListener('keyup', updatePinCodeC);
+    document.getElementById('pinc5').addEventListener('keyup', updatePinCodeC);
+    document.getElementById('pinc6').addEventListener('keyup', updatePinCodeC);
+
+}
+
+//Runs when pincode on is changed by user
+function updatePinCode(){
+    this.value = (this.value).replace(/[^\d]+/g,'');
+    if((this.value).length > 1){
+        this.value = (this.value).charAt(0);
+    }
+    if(this.value == ""){
+        if(this.id !== "pin1"){
+            newid = ("pin"+(this.id.charAt(3)-1));
+            document.getElementById(newid).type = "text";
+            document.getElementById(newid).value = "";
+            document.getElementById(newid).focus();
+            document.getElementById(newid).setSelectionRange(1, 1);
+        }
+    }
+    else{
+        if(this.id !== "pin6"){
+            this.type="password";
+            newid = ("pin"+(eval(this.id.charAt(3))+1));
+            document.getElementById(newid).type = "text";
+            document.getElementById(newid).focus();    
+        }
+    }
+}
+
+
+//Runs when pincode is changed by user
+function updatePinCodeC(){
+    this.value = (this.value).replace(/[^\d]+/g,'');
+    if((this.value).length > 1){
+        this.value = (this.value).charAt(0);
+    }
+    if(this.value == ""){
+        if(this.id !== "pinc1"){
+            newid = ("pinc"+(this.id.charAt(4)-1));
+            document.getElementById(newid).type = "text";
+            document.getElementById(newid).value = "";
+            document.getElementById(newid).focus();
+            document.getElementById(newid).setSelectionRange(1, 1);
+        }
+    }
+    else{
+        if(this.id !== "pinc6"){
+            this.type="password";
+            newid = ("pinc"+(eval(this.id.charAt(4))+1));
+            document.getElementById(newid).type = "text";
+            document.getElementById(newid).focus();    
+        }
+    }
 }
