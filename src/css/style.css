@@ -425,3 +425,26 @@ input.advanced{
     height: 600px;
     margin-top: calc(50vh - 300px);
 }
+
+
+.pincode-group{
+    display: flex;
+    flex-direction: row;
+}
+
+.pincode-group:not(.choose){
+    justify-content: center;
+}
+
+.pincode-group input{
+    border-radius: 8px;
+    outline: none;
+    border: 0.5px solid rgb(var(--grey));
+    font-size: 18px;
+    padding: 7px;
+    width: 36.5px;
+    text-align: center;
+    margin: 4px;
+}
+
+
