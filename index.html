@@ -54,10 +54,16 @@
                 <center>
                     <h2>Load wallet</h2>
                     <br>
-                    <button class="button" id="sendTransactionButton" href="#"><i class="fixicon" data-feather="upload"></i> Choose Wallet file</button>
+                    <input type="file" id="walletFile" name="walletFile" style="display: none;">
+                    <button onclick="document.getElementById('walletFile').click();" class="button" id="sendTransactionButton" href="#"><i class="fixicon" data-feather="upload"></i> Choose Wallet file</button>
                     <br><br><br>
                     <h5 class="grey">Enter your pin</h5>
+                    
                     <div class="pincode-group">
+                        <!-- Pincode is stored here -->
+                        <input id="loadWalletPincode" autofill="none" style="display: none;">
+                        
+                        <!-- Ignore below! Get pincode from above input-->
                         <input id="pin1" class="pincodeInput" type="text">
                         <input id="pin2" class="pincodeInput" type="text">
                         <input id="pin3" class="pincodeInput" type="text">
@@ -92,6 +98,10 @@
                     <h5 class="grey"> Choose your pin: </h5> 
 
                     <div class="pincode-group choose">
+                        <!-- Pincode is stored here -->
+                        <input id="createWalletPincode" autofill="none" style="display: none;">
+                        
+                        <!-- Ignore below! Get pincode from above input-->
                         <input id="pinc1" class="pincodeInput" type="text">
                         <input id="pinc2" class="pincodeInput" type="text">
                         <input id="pinc3" class="pincodeInput" type="text">

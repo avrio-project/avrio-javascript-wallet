@@ -179,6 +179,7 @@ function updatePinCode(){
             document.getElementById(newid).focus();    
         }
     }
+    document.getElementById('loadWalletPincode').value = ""+(document.getElementById('pin1').value)+(document.getElementById('pin2').value)+(document.getElementById('pin3').value)+(document.getElementById('pin4').value)+(document.getElementById('pin5').value)+(document.getElementById('pin6').value);
 }
 
 
@@ -205,4 +206,5 @@ function updatePinCodeC(){
             document.getElementById(newid).focus();    
         }
     }
+    document.getElementById('createWalletPincode').value = ""+(document.getElementById('pinc1').value)+(document.getElementById('pinc2').value)+(document.getElementById('pinc3').value)+(document.getElementById('pinc4').value)+(document.getElementById('pinc5').value)+(document.getElementById('pinc6').value);
 }
