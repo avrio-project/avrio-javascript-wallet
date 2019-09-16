@@ -102,4 +102,4 @@ for (let i = 0; i < currencySymbolDisplay.length; i++) {
     currencySymbolDisplay[i].innerHTML = currencySymbols[currencyCode];
 }
 
-document.getElementById('address').innerHTML = username;
+//document.getElementById('address').innerHTML = username;
