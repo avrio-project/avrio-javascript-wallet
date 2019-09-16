@@ -35,7 +35,6 @@ const currencySymbols = {
 };
 
 const refreshInterval = 60 * 2.5; // refresh every 2 and a half mins
-let username = '';
 
 balaio = Math.floor(((Math.random() * 50) /403) *403.23435) + 1 ; // getBalance(publicKey);
 
