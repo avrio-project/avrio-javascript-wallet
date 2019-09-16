@@ -36,7 +36,7 @@ body,html{
         margin-left: calc(50vw - 450px);
         margin-right: calc(50vw - 450px);
     }
-    div#sendFunds .card, div#receiveFunds .card{
+    div#sendFunds .card, div#receiveFunds .card, div#settings .card{
         width: 900px;
     }
 }
@@ -395,12 +395,12 @@ input.advanced{
     justify-content: center;
 }
 
-/* Send funds */
-#sendFunds.hide,#receiveFunds.hide{
+/* Modals */
+#sendFunds.hide,#receiveFunds.hide,#settings.hide{
     display: none;
 }
 
-#sendFunds,#receiveFunds{
+#sendFunds,#receiveFunds,#settings{
     position: fixed;
     top: 0;
     left: 0;
@@ -413,10 +413,10 @@ input.advanced{
     
 }
 
-#receiveFunds .card{
+#receiveFunds .card, #settings .card{
     width: calc(100vw - 60px);
     height: 530px;
-    margin-top: calc(50vh - 225px);
+    margin-top: calc(50vh - 265px);
 
 }
 
@@ -445,6 +445,29 @@ input.advanced{
     width: 36.5px;
     text-align: center;
     margin: 4px;
+}
+
+#settingsBtn{
+    float: right;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+
+
+/* Register username banner */
+.regUsername{
+    background-color: rgba(var(--danger),1);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+}
+
+.regUsername svg{
+    color: #fff);
+    margin-right: 18px;
 }
 
 

@@ -102,3 +102,29 @@ for (let i = 0; i < currencySymbolDisplay.length; i++) {
 }
 
 //document.getElementById('address').innerHTML = username;
+
+
+//Settings page
+
+function hasUsername(){
+    //Returns boolean (whether user has registered a usernme)
+    username = localStorage.getItem("username");
+    if (username !== "undefined") {
+        return 1;
+    } else {
+        return 0;
+    }
+
+}
+ // TODO :
+function checkUsernameAvailability(username){
+    //Returns true if the username username is available to register
+    return Math.random() >= 0.5; //Random bool
+}
+
+function registerUsername(username){
+    //Registers the username
+    //Return true on success
+    return true;
+}
+// END TODO;

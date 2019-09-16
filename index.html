@@ -22,8 +22,8 @@
             }
             function goviafile() {
                 var x = document.getElementById("viafile");
+                var file =  document.getElementById("walletFile").files[0];
                 let key = x.element[0].value;
-                var file = x.element[1].files[0];
                 var reader = new FileReader();
                 reader.readAsText(file, "UTF-8");
                 reader.onload = function (evt) {
@@ -32,12 +32,12 @@
             }
             function goviapk() {
                 var x = document.getElementById("viapk");
-                var text = "";
+                var privatekey = "";
                 var i;
                 for (i = 0; i < x.length ;i++) {
-                    text += x.elements[i].value + "<br>";
+                    privatekey += x.elements[i].value;
                 }
-                document.getElementById("test").innerHTML = text;
+                localStorage.setItem("privateKey", privatekey);
             }
         </script>
         <div class="main">

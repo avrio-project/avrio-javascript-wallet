@@ -15,8 +15,8 @@
             <div class="card card-top">
                 <div class="logo-group">
                     <img class="logo" src="img/logo.png">
-                    
-                    <h3>Aviro</h3>
+
+                    <h3>Aviro <a class="discreet-button" id="settingsBtn"><i class="fixicon" data-feather="settings"></i></a></h3>
                 </div>
             </div>
 
@@ -24,7 +24,7 @@
                 <h5 class="grey nobottom"><i class="fixicon" data-feather="credit-card"></i> <span id="walletname"></span></h5>
                 <h1><span id="aiobal"></span> <small>AIO</small></h1>
                 <h4 class="grey"><b><span class="currencySymbolDisplay"></span><span id="fiatbal"></span> <span class="currencyCodeDisplay"></span></b></h4>
-                
+
                 <br>
 
                 <button id="sendBtn" class="button send-btn" href="#"><i class="fixicon" data-feather="arrow-up-right"></i> Send</button>&nbsp;
@@ -32,22 +32,21 @@
 
                 <div class="top-right">
                     <a class="discreet-button"><i class="fixicon" data-feather="edit-3"></i></a>
-                    <a class="discreet-button"><i class="fixicon" data-feather="settings"></i></a>
                 </div>
             </div>
 
             <div id="sendFunds" class="hide">
                 <div class="card">
                     <h3>Send funds</h3>
-                    
+
                     <div class="top-right">
                         <a id="sendFundsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
                     </div>
-                    
+
                     <br>
-                    
+
                     <h5 class="grey"><b id="amountLabel">Amount</b></h5>
-                    
+
                     <div class="inputGroup">
                         <input type="text" onkeypress="validate(event,this)" class="amount" id="sendAmount" autocomplete="off" value="0">
                         <select class="amountSuffix" id="sendCurrency" autocomplete="off">
@@ -55,9 +54,9 @@
                             <option value="fiat" class="currencyCodeDisplay"></option>
                         </select> 
                     </div>
-                    
+
                     <h5 class="grey" id="sendAmountEquiv"></h5>
-                    
+
                     <br>
 
                     <h5 class="grey"><b>Recipient Address</b></h5>
@@ -72,7 +71,7 @@
                     <br>
 
                     <h5 class="grey"><b>Estimated Fee (<i><span id="gaspriceaio"></span></i> AIO)<a class="discreet-button" id="toggleAdvancedOptions" style="float: right;"><i class="fixicon" data-feather="settings"></i> Advanced options</a></b></h5>
-                    
+
                     <div id="advancedOptions">
                         <div>
                             <h5 class="grey">Gas price</h5>
@@ -91,15 +90,15 @@
                     <br>
 
                     <!--  FOR THE FUTURE: 'Verified user' box 
-                    <div class="idbox">
-                        <div class="flex-col">
-                            <i data-feather="user-check"></i>
-                        </div>
-                        <div class="flex-col">
-                            <h4><b>Verified user</b> &nbsp;&nbsp;Signed by <i>https://google.co.uk</i></h4>
-                        </div>
-                    </div>
-                    -->
+<div class="idbox">
+<div class="flex-col">
+<i data-feather="user-check"></i>
+</div>
+<div class="flex-col">
+<h4><b>Verified user</b> &nbsp;&nbsp;Signed by <i>https://google.co.uk</i></h4>
+</div>
+</div>
+-->
 
                     <br><br>
                     <button class="button big-btn" id="sendTransactionButton" href="#">Send</button>
@@ -120,11 +119,31 @@
                     <script type="text/javascript">
                         new QRCode(document.getElementById("qrcode"), "null");
                         //qrcode.clear(); // clear the code.
-                       // qrcode.makeCode("ariel.hurdle"); // make another code.
+                        // qrcode.makeCode("ariel.hurdle"); // make another code.
                     </script>
                 </div>
             </div>
-            
+
+            <div id="settings" class="hide">
+                <div class="card">
+                    <div class="top-right">
+                        <a id="settingsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
+                    </div>
+                    <br><br>
+                    <div class="regUsername">
+                        <div class="flex-col">
+                            <i data-feather="user"></i>
+                        </div>
+                        <div class="flex-col">
+                            <h4><b style="padding-left: 7px;">You haven't registered a username yet</b><br>
+                            <a class="discreet-button" style="color: #fff;">Hi</a>
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <div class="card">
                 <h4 class="grey">Transactions</h4>
                 <br>

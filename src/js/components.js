@@ -5,6 +5,8 @@ function loadDashboard() {
     document.getElementById('sendCurrency').addEventListener('change', sendCurrencyChange);
     document.getElementById('sendBtn').addEventListener('click', sendModal);
     document.getElementById('sendFundsClose').addEventListener('click', closeSendModal);
+    document.getElementById('settingsBtn').addEventListener('click', settingsModal);
+    document.getElementById('settingsClose').addEventListener('click', closeSettingsModal);
     document.getElementById('receiveFundsClose').addEventListener('click', closeReceiveModal);
     document.getElementById('receiveBtn').addEventListener('click', receiveModal);
     document.getElementById('toggleAdvancedOptions').addEventListener('click', toggleAdvanced);
@@ -13,6 +15,7 @@ function loadDashboard() {
     document.getElementById('message').addEventListener('input', updateEstimate);
     sendCurrencyChange();
     updateEstimate();
+    loadSettings();
 }
 
 //Called whenever user changes amount to send in 'send funds'
@@ -95,6 +98,17 @@ function closeSendModal() {
     document.getElementById('sendFunds').classList.add('hide');
 }
 
+
+//Open modal to settings
+function settingsModal() {
+    document.getElementById('settings').classList.remove('hide');
+}
+
+//Close modal to settings
+function closeSettingsModal() {
+    document.getElementById('settings').classList.add('hide');
+}
+
 //Open modal to receive transactions
 function receiveModal() {
     document.getElementById('receiveFunds').classList.remove('hide');
@@ -156,7 +170,7 @@ function pinCodeStart(){
 
 }
 
-//Runs when pincode on is changed by user
+//Runs when pincode (in load wallet) on is changed by user
 function updatePinCode(){
     this.value = (this.value).replace(/[^\d]+/g,'');
     if((this.value).length > 1){
@@ -183,7 +197,7 @@ function updatePinCode(){
 }
 
 
-//Runs when pincode is changed by user
+//Runs when pincode (in create new wallet) is changed by user
 function updatePinCodeC(){
     this.value = (this.value).replace(/[^\d]+/g,'');
     if((this.value).length > 1){
@@ -207,4 +221,11 @@ function updatePinCodeC(){
         }
     }
     document.getElementById('createWalletPincode').value = ""+(document.getElementById('pinc1').value)+(document.getElementById('pinc2').value)+(document.getElementById('pinc3').value)+(document.getElementById('pinc4').value)+(document.getElementById('pinc5').value)+(document.getElementById('pinc6').value);
+}
+
+
+
+//Loads the settings in dashboard.html
+function loadSettings(){
+    
 }
