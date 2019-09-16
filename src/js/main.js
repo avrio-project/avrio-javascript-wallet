@@ -21,6 +21,7 @@ let balfiat = 0; // set defult balance to 0
 let balaio = 0; 
 let aioprice = 0.80; // static price of £0.80 untill we get a exchange (as this is around the target value)
 let address = "";
+let username = "";
 const currencyCodes= [
     'gbp',
     'usd',
