@@ -114,12 +114,12 @@
                     </div>
                     <br>
                     <h3>Receive funds</h3>
-                    <h4>Receive address: <i>ariel.hurdle</i></h4>
+                    <br></br>
+                    <h4>Receive address: <i><span id="address"></i></h4>
+                    <br></br>
                     <div id="qrcode"></div>
                     <script type="text/javascript">
-                        new QRCode(document.getElementById("qrcode"), "null");
-                        //qrcode.clear(); // clear the code.
-                        // qrcode.makeCode("ariel.hurdle"); // make another code.
+                        new QRCode(document.getElementById("qrcode"), address);
                     </script>
                 </div>
             </div>
@@ -130,15 +130,40 @@
                         <a id="settingsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
                     </div>
                     <br><br>
+                    <div class="idbox" id="usernameBanner">
+                        <div class="flex-col">
+                            <i data-feather="user-check"></i>
+                        </div>
+                        <div class="flex-col">
+                            <h4>You've registered the username <b id="displayUsername">Bob123</b></h4>
+                        </div>
+                    </div>
+                    
                     <div class="regUsername">
                         <div class="flex-col">
                             <i data-feather="user"></i>
                         </div>
                         <div class="flex-col">
-                            <h4><b style="padding-left: 7px;">You haven't registered a username yet</b><br>
-                            <a class="discreet-button" style="color: #fff;">Hi</a>
+                            <h4><b style="padding-left: 7px;">You haven't registered a username yet!</b>
+                                <a class="discreet-button" onclick="document.getElementsByClassName('regUsernameForm')[0].style.display = 'block';" style="color: #fff; text-decoration: underline;">Register now</a>
                             </h4>
                         </div>
+                    </div>
+
+                    <div class="regUsernameForm">
+                        <br>
+                        <div class="inputGroup">
+                            <input id="chooseUsername" type="text" class="amount" autocomplete="off" placeholder="Choose username">
+                            <div class="amountSuffix" id="regUsernameStatus" onclick="chooseUsername()">
+                                <i data-feather="arrow-right"></i>
+                            </div> 
+                        </div>
+
+                        <h5 style="color: rgb(var(--danger))" id="usernameError">Uh oh! Could not register username.</h5>
+                        <br>
+                        <a class="button primary" onclick="submitUsername()" id="regUsernameBtn">Register (Fee: 0.5AIO)</a>
+
+
                     </div>
 
                 </div>
@@ -156,6 +181,7 @@
         <script src="https://unpkg.com/feather-icons"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="src/js/main.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
         <script src="src/js/components.js"></script>
 
         <script>

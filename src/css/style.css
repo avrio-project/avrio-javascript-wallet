@@ -470,4 +470,18 @@ input.advanced{
     margin-right: 18px;
 }
 
+.regUsernameForm{
+    display: none;
+}
 
+#regUsernameBtn{
+    display: none;
+}
+
+#usernameError{
+    display: none;
+}
+
+#usernameBanner{
+    display: none;
+}

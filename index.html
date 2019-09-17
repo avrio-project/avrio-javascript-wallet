@@ -11,33 +11,63 @@
     <body>
 
         <script>
-            function gocreatewallet() {
-                var x = document.getElementById("createwallet");
+            function gocreatewallet() { // creates a wallet file then passes that data to index.html
+                var walletname = document.getElementById("createwallet").elements[0].value;
                 var pin = document.getElementById("createWalletPincode").value;
-                var i;
-                for (i = 1; i < x.length ;i++) {
-                    pin += x.elements[i].value;
-                }
-                document.getElementById("test").innerHTML = pin;
+                let keys = ['7C82C886DD347EF34C865C7923DD3A0FDC46C16524C3BEE0113F2A50D8D880B3', '04BEE08EB35BCF7F49CD61FD3F4B48BB171518F704F04D3ACFA7FF5823D28DEAFF43A8159A47B183674AD15B48945ED30F9074FE06D40D71833E5DDA6742A072B0'];//generateKeypair();
+                let privateKeyE = CryptoJS.AES.encrypt(keys[0], pin);
+                let walletJSON = JSON.stringify({ version: 1, username: "none", publicKey: keys[0], privateKey: privateKeyE, advancedMode: "false"});
+                localStorage.setItem("privateKey", keys[0]);
+                localStorage.setItem("username", "none");
+                localStorage.setItem("advancedMode","false");
+                var fileBlob = new Blob(walletJSON,{type: "application/json"}); 
+                if (username !== "none") {
+                    download(fileBlob,"avrio-wallet-" + username); 
+                }else {}
+                download(fileBlob,"avrio-wallet" + keys[1]);
+                function download(blob,name) {
+				var url = URL.createObjectURL(blob),
+					div = document.createElement("div"),
+					anch = document.createElement("a");
+ 
+				document.body.appendChild(div);
+				div.appendChild(anch);
+ 
+				anch.innerHTML = "&nbsp;";
+				div.style.width = "0";
+				div.style.height = "0";
+				anch.href = url;
+				anch.download = name;
+				
+				var ev = new MouseEvent("click",{});
+				anch.dispatchEvent(ev);
+				document.body.removeChild(div);
+			}
+ 
+
+                window.location.href("index.html");
             }
-            function goviafile() {
-                var x = document.getElementById("viafile");
+            function goviafile() { // Loads the data from a wallet file,  decrypts it (where needed) and then passes it to index.html (via loaclStorage)
                 var file =  document.getElementById("walletFile").files[0];
-                let key = x.element[0].value;
+                let key = document.getElementById("loadWalletPincode").value;
                 var reader = new FileReader();
                 reader.readAsText(file, "UTF-8");
                 reader.onload = function (evt) {
-                    document.getElementById("test").innerHTML = evt.target.result;
+                    var result = evt.target.result;
                 }
+                var parsed  = JSON.parse(result);
+                //CryptoJS.AES.encrypt("Message", pin);
+                //CryptoJS.AES.decrypt(encrypted, pin);
+                var privateKey = CryptoJS.AES.decrypt(parsed.privateKey, key);
+                privateKey = privateKey.toString(CryptoJS.enc.Utf8);
+                localStorage.setItem("privateKey", privateKey);
+                localStorage.setItem("username", parsed.username);
+                localStorage.setItem("advancedMode",parsed.advancedMode);
+                window.location.href("index.html");
             }
-            function goviapk() {
-                var x = document.getElementById("viapk");
-                var privatekey = "";
-                var i;
-                for (i = 0; i < x.length ;i++) {
-                    privatekey += x.elements[i].value;
-                }
-                localStorage.setItem("privateKey", privatekey);
+            function goviapk() { // passes privateKey to index.html
+                localStorage.setItem("privateKey", document.getElementById("viapk").elements[0].value);
+                window.location.href("index.html");
             }
         </script>
         <div class="main">
@@ -145,6 +175,7 @@
         <script src="https://unpkg.com/feather-icons"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="src/js/components.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
         <script>
             pinCodeStart();
             feather.replace();

@@ -227,5 +227,51 @@ function updatePinCodeC(){
 
 //Loads the settings in dashboard.html
 function loadSettings(){
-    
+    document.getElementById('chooseUsername').addEventListener('input', resetPickUsername);   
+    if(hasUsername()){
+        document.getElementsByClassName('regUsername')[0].style.display = 'none';   
+        document.getElementsByClassName('regUsernameForm')[0].style.display = 'none'; 
+        document.getElementById('usernameBanner').style.display = "flex";
+        document.getElementById('displayUsername').innerHTML = localStorage.getItem("username");
+    }
+    else{
+        document.getElementsByClassName('regUsername')[0].style.display = 'flex';   
+        document.getElementsByClassName('regUsernameForm')[0].style.display = 'flex'; 
+    }
+}
+
+
+
+function resetPickUsername(){
+    document.getElementById('regUsernameStatus').innerHTML = '<i data-feather="arrow-right"></i>';
+    document.getElementById('usernameError').style.display = "none";
+    feather.replace();
+}
+
+//Runs whenever username choose input field is edited
+function chooseUsername(){
+    usernameIdea = document.getElementById('chooseUsername').value;
+    if(checkUsernameAvailability(usernameIdea)){
+        //Username available
+        document.getElementById('regUsernameStatus').innerHTML = '<i data-feather="check" style="color: rgb(var(--success))"></i>';
+        document.getElementById('regUsernameBtn').style.display = 'inline-block';
+        feather.replace();
+    }
+    else{
+        //Username not available
+        document.getElementById('regUsernameStatus').innerHTML = '<i data-feather="x" style="color: rgb(var(--danger))"></i>';
+        document.getElementById('regUsernameBtn').style.display = 'none';
+        feather.replace();    
+    }
+}
+
+//Runs when user submits registration
+function submitUsername(){
+    usernameIdea = document.getElementById('chooseUsername').value;
+    if(registerUsername(usernameIdea)){
+        loadSettings();
+    }
+    else{
+        document.getElementById('usernameError').style.display = "block";
+    }
 }
