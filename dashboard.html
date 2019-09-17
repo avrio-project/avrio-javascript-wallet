@@ -9,8 +9,8 @@
         <link rel="icon" href="favicon.ico" type="image/x-icon">  
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
-    <body>
 
+    <body>
         <div class="main">
             <div class="card card-top">
                 <div class="logo-group">
@@ -101,6 +101,7 @@
 -->
 
                     <br><br>
+
                     <button class="button big-btn" id="sendTransactionButton" href="#">Send</button>
                     <h5 style="color: rgb(var(--danger)); margin-top: 20px;"><b id="sendWarning">Warning, estimated gas exceeds max gas!</b></h5>
                 </div>
@@ -112,12 +113,19 @@
                     <div class="top-right">
                         <a id="receiveFundsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
                     </div>
+
                     <br>
+
                     <h3>Receive funds</h3>
+
                     <br></br>
+
                     <h4>Receive address: <i><span id="address"></i></h4>
+
                     <br></br>
+
                     <div id="qrcode"></div>
+
                     <script type="text/javascript">
                         new QRCode(document.getElementById("qrcode"), address);
                     </script>
@@ -129,11 +137,14 @@
                     <div class="top-right">
                         <a id="settingsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
                     </div>
+
                     <br><br>
+
                     <div class="idbox" id="usernameBanner">
                         <div class="flex-col">
                             <i data-feather="user-check"></i>
                         </div>
+
                         <div class="flex-col">
                             <h4>You've registered the username <b id="displayUsername">Bob123</b></h4>
                         </div>
@@ -143,8 +154,10 @@
                         <div class="flex-col">
                             <i data-feather="user"></i>
                         </div>
+
                         <div class="flex-col">
-                            <h4><b style="padding-left: 7px;">You haven't registered a username yet!</b>
+                            <h4>
+                                <b style="padding-left: 7px;">You haven't registered a username yet!</b>
                                 <a class="discreet-button" onclick="document.getElementsByClassName('regUsernameForm')[0].style.display = 'block';" style="color: #fff; text-decoration: underline;">Register now</a>
                             </h4>
                         </div>
@@ -152,18 +165,20 @@
 
                     <div class="regUsernameForm">
                         <br>
+
                         <div class="inputGroup">
                             <input id="chooseUsername" type="text" class="amount" autocomplete="off" placeholder="Choose username">
+
                             <div class="amountSuffix" id="regUsernameStatus" onclick="chooseUsername()">
                                 <i data-feather="arrow-right"></i>
                             </div> 
                         </div>
 
                         <h5 style="color: rgb(var(--danger))" id="usernameError">Uh oh! Could not register username.</h5>
+
                         <br>
+
                         <a class="button primary" onclick="submitUsername()" id="regUsernameBtn">Register (Fee: 0.5AIO)</a>
-
-
                     </div>
 
                 </div>
@@ -171,9 +186,10 @@
 
             <div class="card">
                 <h4 class="grey">Transactions</h4>
+
                 <br>
-                <div id="transactionList">
-                </div>
+
+                <div id="transactionList"></div>
             </div>
 
         </div>
