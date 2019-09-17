@@ -8,25 +8,25 @@
         <link rel="icon" href="favicon.ico" type="image/x-icon">  
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
-    
+
     <body>
         <script>
             function gocreatewallet() { // creates a wallet file then passes that data to index.html
-                var walletname = document.getElementById("createwallet").elements[0].value;
-                var pin = document.getElementById("createWalletPincode").value;
+                let walletname = document.getElementById("createwallet").elements[0].value;
+                let pin = document.getElementById("createWalletPincode").value;
                 let keys = ['7C82C886DD347EF34C865C7923DD3A0FDC46C16524C3BEE0113F2A50D8D880B3', '04BEE08EB35BCF7F49CD61FD3F4B48BB171518F704F04D3ACFA7FF5823D28DEAFF43A8159A47B183674AD15B48945ED30F9074FE06D40D71833E5DDA6742A072B0'];//generateKeypair();
                 let privateKeyE = CryptoJS.AES.encrypt(keys[0], pin);
                 let walletJSON = JSON.stringify({ version: 1, username: "none", publicKey: keys[0], privateKey: privateKeyE, advancedMode: "false"});
                 localStorage.setItem("privateKey", keys[0]);
                 localStorage.setItem("username", "none");
                 localStorage.setItem("advancedMode","false");
-                var fileBlob = new Blob(walletJSON,{type: "application/json"}); 
+                let fileBlob = new Blob(walletJSON,{type: "application/json"}); 
                 if (username !== "none") {
                     download(fileBlob,"avrio-wallet-" + username); 
                 }else {}
                 download(fileBlob,"avrio-wallet" + keys[1]);
                 function download(blob,name) {
-				var url = URL.createObjectURL(blob),
+				let url = URL.createObjectURL(blob),
 					div = document.createElement("div"),
 					anch = document.createElement("a");
  
@@ -39,7 +39,7 @@
 				anch.href = url;
 				anch.download = name;
 				
-				var ev = new MouseEvent("click",{});
+				let ev = new MouseEvent("click",{});
 				anch.dispatchEvent(ev);
 				document.body.removeChild(div);
 			}
@@ -48,17 +48,17 @@
                 window.location = ("dashboard.html");
             }
             function goviafile() { // Loads the data from a wallet file,  decrypts it (where needed) and then passes it to index.html (via loaclStorage)
-                var file =  document.getElementById("walletFile").files[0];
+                let file =  document.getElementById("walletFile").files[0];
                 let key = document.getElementById("loadWalletPincode").value;
-                var reader = new FileReader();
+                let reader = new FileReader();
                 reader.readAsText(file, "UTF-8");
                 reader.onload = function (evt) {
-                    var result = evt.target.result;
+                    let result = evt.target.result;
                 }
-                var parsed  = JSON.parse(result);
+                let parsed  = JSON.parse(result);
                 //CryptoJS.AES.encrypt("Message", pin);
                 //CryptoJS.AES.decrypt(encrypted, pin);
-                var privateKey = CryptoJS.AES.decrypt(parsed.privateKey, key);
+                let privateKey = CryptoJS.AES.decrypt(parsed.privateKey, key);
                 privateKey = privateKey.toString(CryptoJS.enc.Utf8);
                 localStorage.setItem("privateKey", privateKey);
                 localStorage.setItem("username", parsed.username);

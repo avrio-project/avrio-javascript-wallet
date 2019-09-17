@@ -28,7 +28,7 @@ function sendAmountChange() {
         if (balaio < document.getElementById('sendAmount').value) {
             document.getElementById('sendTransactionButton').disabled = true;
             document.getElementById('sendAmount').classList.add('error');
-            document.getElementById('amountLabel').innerHTML = 'Amount <span style="color:rgb(var(--danger))">(Insufficient funds!)</span>';
+            document.getElementById('amountLabel').innerHTML = 'Amount <span style="color:rgb(let(--danger))">(Insufficient funds!)</span>';
         } else {
             document.getElementById('sendTransactionButton').disabled = false;
             document.getElementById('sendAmount').classList.remove('error');
@@ -40,7 +40,7 @@ function sendAmountChange() {
         if (balfiat < document.getElementById('sendAmount').value) {
             document.getElementById('sendTransactionButton').disabled = true;
             document.getElementById('sendAmount').classList.add('error');
-            document.getElementById('amountLabel').innerHTML = 'Amount <span style="color:rgb(var(--danger))">(Insufficient funds!)</span>';
+            document.getElementById('amountLabel').innerHTML = 'Amount <span style="color:rgb(let(--danger))">(Insufficient funds!)</span>';
         } else {
             document.getElementById('sendTransactionButton').disabled = false;
             document.getElementById('sendAmount').classList.remove('error');
@@ -252,13 +252,13 @@ function chooseUsername(){
     usernameIdea = document.getElementById('chooseUsername').value;
     if(checkUsernameAvailability(usernameIdea)){
         //Username available
-        document.getElementById('regUsernameStatus').innerHTML = '<i data-feather="check" style="color: rgb(var(--success))"></i>';
+        document.getElementById('regUsernameStatus').innerHTML = '<i data-feather="check" style="color: rgb(let(--success))"></i>';
         document.getElementById('regUsernameBtn').style.display = 'inline-block';
         feather.replace();
     }
     else{
         //Username not available
-        document.getElementById('regUsernameStatus').innerHTML = '<i data-feather="x" style="color: rgb(var(--danger))"></i>';
+        document.getElementById('regUsernameStatus').innerHTML = '<i data-feather="x" style="color: rgb(let(--danger))"></i>';
         document.getElementById('regUsernameBtn').style.display = 'none';
         feather.replace();    
     }
