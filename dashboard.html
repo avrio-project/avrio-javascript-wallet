@@ -19,88 +19,77 @@
                     <h3>Aviro <a class="discreet-button" id="settingsBtn"><i class="fixicon" data-feather="settings"></i></a></h3>
                 </div>
             </div>
-        </div>
 
-        <div class="card">
-            <h5 class="grey nobottom"><i class="fixicon" data-feather="credit-card"></i> <span id="walletname"></span>
-            </h5>
-            <h1><span id="aiobal"></span> <small>AIO</small></h1>
-            <h4 class="grey"><b><span class="currencySymbolDisplay"></span><span id="fiatbal"></span> <span
-                        class="currencyCodeDisplay"></span></b></h4>
-
-            <br>
-
-            <button id="sendBtn" class="button send-btn" href="#"><i class="fixicon" data-feather="arrow-up-right"></i>
-                Send</button>&nbsp;
-            <button id="receiveBtn" class="button primary send-btn" href="#"><i class="fixicon"
-                    data-feather="arrow-down-left"></i> Receive</button>
-
-            <div class="top-right">
-                <a class="discreet-button"><i class="fixicon" data-feather="edit-3"></i></a>
-            </div>
-        </div>
-
-        <div id="sendFunds" class="hide">
             <div class="card">
-                <h3>Send funds</h3>
+                <h5 class="grey nobottom"><i class="fixicon" data-feather="credit-card"></i> <span id="walletname"></span></h5>
+                <h1><span id="aiobal"></span> <small>AIO</small></h1>
+                <h4 class="grey"><b><span class="currencySymbolDisplay"></span><span id="fiatbal"></span> <span class="currencyCodeDisplay"></span></b></h4>
+
+                <br>
+
+                <button id="sendBtn" class="button send-btn" href="#"><i class="fixicon" data-feather="arrow-up-right"></i> Send</button>&nbsp;
+                <button id="receiveBtn" class="button primary send-btn" href="#"><i class="fixicon" data-feather="arrow-down-left"></i> Receive</button>
 
                 <div class="top-right">
-                    <a id="sendFundsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
+                    <a class="discreet-button"><i class="fixicon" data-feather="edit-3"></i></a>
                 </div>
+            </div>
 
-                <br>
+            <div id="sendFunds" class="hide">
+                <div class="card">
+                    <h3>Send funds</h3>
 
-                <h5 class="grey"><b id="amountLabel">Amount</b></h5>
-
-                <div class="inputGroup">
-                    <input type="text" onkeypress="validate(event,this)" class="amount" id="sendAmount"
-                        autocomplete="off" value="0">
-                    <select class="amountSuffix" id="sendCurrency" autocomplete="off">
-                        <option value="io" selected="selected">AIO</option>
-                        <option value="fiat" class="currencyCodeDisplay"></option>
-                    </select>
-                </div>
-
-                <h5 class="grey" id="sendAmountEquiv"></h5>
-
-                <br>
-
-                <h5 class="grey"><b>Recipient Address</b></h5>
-
-                <div class="inputGroup">
-                    <input id="sendRecipient" type="text" class="amount" autocomplete="off">
-                    <div class="amountSuffix"
-                        onclick='document.getElementById("sendRecipient").value = ""; document.getElementById("sendRecipient").focus();'>
-                        <i data-feather="x-circle"></i>
+                    <div class="top-right">
+                        <a id="sendFundsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
                     </div>
-                </div>
 
-                <br>
+                    <br>
 
-                <h5 class="grey"><b>Estimated Fee (<i><span id="gaspriceaio"></span></i> AIO)<a class="discreet-button"
-                            id="toggleAdvancedOptions" style="float: right;"><i class="fixicon"
-                                data-feather="settings"></i> Advanced options</a></b></h5>
+                    <h5 class="grey"><b id="amountLabel">Amount</b></h5>
 
-                <div id="advancedOptions">
-                    <div>
-                        <h5 class="grey">Gas price</h5>
-                        <input id="gasPrice" onkeypress="validate(event,this)" placeholder="Gas price" type="text"
-                            class="advanced" autocomplete="off" value="0.001">
+                    <div class="inputGroup">
+                        <input type="text" onkeypress="validate(event,this)" class="amount" id="sendAmount" autocomplete="off" value="0">
+                        <select class="amountSuffix" id="sendCurrency" autocomplete="off">
+                            <option value="io" selected="selected">AIO</option>
+                            <option value="fiat" class="currencyCodeDisplay"></option>
+                        </select> 
                     </div>
-                    <div>
-                        <h5 class="grey">Max gas</h5>
-                        <input id="maxGas" onkeypress="validate(event,this)" placeholder="Max gas" type="text"
-                            class="advanced" autocomplete="off" value="50">
-                    </div>
-                    <div>
-                        <h5 class="grey">Message</h5>
-                        <input id="message" placeholder="Message" type="text" class="advanced" autocomplete="off">
-                    </div>
-                </div>
 
-                <br>
+                    <h5 class="grey" id="sendAmountEquiv"></h5>
 
-                <!--  FOR THE FUTURE: 'Verified user' box 
+                    <br>
+
+                    <h5 class="grey"><b>Recipient Address</b></h5>
+
+                    <div class="inputGroup">
+                        <input id="sendRecipient" type="text" class="amount" autocomplete="off">
+                        <div class="amountSuffix" onclick='document.getElementById("sendRecipient").value = ""; document.getElementById("sendRecipient").focus();'>
+                            <i data-feather="x-circle"></i>
+                        </div> 
+                    </div>
+
+                    <br>
+
+                    <h5 class="grey"><b>Estimated Fee (<i><span id="gaspriceaio"></span></i> AIO)<a class="discreet-button" id="toggleAdvancedOptions" style="float: right;"><i class="fixicon" data-feather="settings"></i> Advanced options</a></b></h5>
+
+                    <div id="advancedOptions">
+                        <div>
+                            <h5 class="grey">Gas price</h5>
+                            <input id="gasPrice" onkeypress="validate(event,this)" placeholder="Gas price" type="text" class="advanced" autocomplete="off" value="0.001">
+                        </div>
+                        <div>
+                            <h5 class="grey">Max gas</h5>
+                            <input id="maxGas" onkeypress="validate(event,this)" placeholder="Max gas" type="text" class="advanced" autocomplete="off" value="50">
+                        </div>
+                        <div>
+                            <h5 class="grey">Message</h5>
+                            <input id="message" placeholder="Message" type="text" class="advanced" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!--  FOR THE FUTURE: 'Verified user' box 
 <div class="idbox">
 <div class="flex-col">
 <i data-feather="user-check"></i>
@@ -117,106 +106,103 @@
                     <h5 style="color: rgb(var(--danger)); margin-top: 20px;"><b id="sendWarning">Warning, estimated gas exceeds max gas!</b></h5>
                 </div>
             </div>
-        </div>
 
 
-        <div id="receiveFunds" class="hide">
-            <div class="card">
-                <div class="top-right">
-                    <a id="receiveFundsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
-                </div>
-
-                <br>
-
-                <h3>Receive funds</h3>
-
-                <br></br>
-
-                <h4>Receive address: <i><span id="address"></i></h4>
-
-                <br></br>
-
-                <div id="qrcode"></div>
-                
-                <script type="text/javascript">
-                    new QRCode(document.getElementById("qrcode"), address);
-                </script>
-            </div>
-        </div>
-
-        <div id="settings" class="hide">
-            <div class="card">
-                <div class="top-right">
-                    <a id="settingsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
-                </div>
-                <br><br>
-                <div class="idbox" id="usernameBanner">
-                    <div class="flex-col">
-                        <i data-feather="user-check"></i>
+            <div id="receiveFunds" class="hide">
+                <div class="card">
+                    <div class="top-right">
+                        <a id="receiveFundsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
                     </div>
 
-                    <div class="flex-col">
-                        <h4>You've registered the username <b id="displayUsername">Bob123</b></h4>
-                    </div>
-                </div>
-
-                <div class="regUsername">
-                    <div class="flex-col">
-                        <i data-feather="user"></i>
-                    </div>
-
-                    <div class="flex-col">
-                        <h4>
-                            <b style="padding-left: 7px;">You haven't registered a username yet!</b>
-                            <a class="discreet-button"
-                                onclick="document.getElementsByClassName('regUsernameForm')[0].style.display = 'block';"
-                                style="color: #fff; text-decoration: underline;">Register now</a>
-                        </h4>
-                    </div>
-                </div>
-
-                <div class="regUsernameForm">
                     <br>
 
-                    <div class="inputGroup">
-                        <input id="chooseUsername" type="text" class="amount" autocomplete="off"
-                            placeholder="Choose username">
-                        
-                        <div class="amountSuffix" id="regUsernameStatus" onclick="chooseUsername()">
-                            <i data-feather="arrow-right"></i>
+                    <h3>Receive funds</h3>
+
+                    <br>
+
+                    <h4>Receive address: <i><span id="address"></span></i></h4>
+
+                    <br>
+
+                    <div id="qrcode"></div>
+
+                    <script type="text/javascript">
+                        new QRCode(document.getElementById("qrcode"), address);
+                    </script>
+                </div>
+            </div>
+
+            <div id="settings" class="hide">
+                <div class="card">
+                    <div class="top-right">
+                        <a id="settingsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
+                    </div>
+
+                    <br><br>
+
+                    <div class="idbox" id="usernameBanner">
+                        <div class="flex-col">
+                            <i data-feather="user-check"></i>
+                        </div>
+
+                        <div class="flex-col">
+                            <h4>You've registered the username <b id="displayUsername">Bob123</b></h4>
+                        </div>
+                    </div>
+                    
+                    <div class="regUsername">
+                        <div class="flex-col">
+                            <i data-feather="user"></i>
+                        </div>
+
+                        <div class="flex-col">
+                            <h4>
+                                <b style="padding-left: 7px;">You haven't registered a username yet!</b>
+                                <a class="discreet-button" onclick="document.getElementsByClassName('regUsernameForm')[0].style.display = 'block';" style="color: #fff; text-decoration: underline;">Register now</a>
+                            </h4>
                         </div>
                     </div>
 
-                    <h5 style="color: rgb(var(--danger))" id="usernameError">Uh oh! Could not register username.</h5>
+                    <div class="regUsernameForm">
+                        <br>
 
-                    <br>
+                        <div class="inputGroup">
+                            <input id="chooseUsername" type="text" class="amount" autocomplete="off" placeholder="Choose username">
 
-                    <a class="button primary" onclick="submitUsername()" id="regUsernameBtn">Register (Fee: 0.5AIO)</a>
+                            <div class="amountSuffix" id="regUsernameStatus" onclick="chooseUsername()">
+                                <i data-feather="arrow-right"></i>
+                            </div> 
+                        </div>
+
+                        <h5 style="color: rgb(var(--danger))" id="usernameError">Uh oh! Could not register username.</h5>
+
+                        <br>
+
+                        <a class="button primary" onclick="submitUsername()" id="regUsernameBtn">Register (Fee: 0.5AIO)</a>
+                    </div>
+
                 </div>
-
             </div>
+
+            <div class="card">
+                <h4 class="grey">Transactions</h4>
+
+                <br>
+
+                <div id="transactionList"></div>
+            </div>
+
         </div>
 
-        <div class="card">
-            <h4 class="grey">Transactions</h4>
-            
-            <br>
+        <script src="https://unpkg.com/feather-icons"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="src/js/main.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+        <script src="src/js/components.js"></script>
 
-            <div id="transactionList"></div>
-        </div>
-    </div>
-
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="src/js/main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-    <script src="src/js/components.js"></script>
-
-    <script>
-        feather.replace();
-        loadDashboard();
-    </script>
-</body>
-
-</html>
+        <script>
+            feather.replace();
+            loadDashboard();
+        </script>
+    </body>
+</html> 
