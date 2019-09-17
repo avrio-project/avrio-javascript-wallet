@@ -56,13 +56,6 @@ document.getElementById('aiobal').innerHTML = balaio;
 document.getElementById('fiatbal').innerHTML = (Math.round(balfiat*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
 
 
-function setNode(node) {
-    nodeip = node;
-    //refresh()
-}
-
-
-
 //Adds transaction to list    
 //type: 'sent' or 'received', party (str) = username of recipient, time (str) = time description, amountio(float) = amount in AIO
 //amountgbp = amountio * aioprice; 
@@ -140,12 +133,12 @@ function changeCurrency(code){
 
 function changeNode(){
     //Changes to the user's preferred node
-    newNode = document.getElementById('chooseNode').value;
+    nodeip = document.getElementById('chooseNode').value;
 }
 
 function getCurrentNode(){
     //Returns the node the user has currently chosen
-    return "1.1.1.1";
+    return noedip;
 }
 
 // END TODO;
