@@ -45,7 +45,7 @@
 			}
  
 
-                window.location = ("index.html");
+                window.location = ("dashboard.html");
             }
             function goviafile() { // Loads the data from a wallet file,  decrypts it (where needed) and then passes it to index.html (via loaclStorage)
                 var file =  document.getElementById("walletFile").files[0];
@@ -63,11 +63,11 @@
                 localStorage.setItem("privateKey", privateKey);
                 localStorage.setItem("username", parsed.username);
                 localStorage.setItem("advancedMode",parsed.advancedMode);
-                window.location = ("index.html");
+                window.location = ("dashboard.html");
             }
             function goviapk() { // passes privateKey to index.html
                 localStorage.setItem("privateKey", document.getElementById("viapk").elements[0].value);
-                window.location = ("index.html");
+                window.location = ("dashboard.html");
             }
         </script>
         <div class="main">
