@@ -108,8 +108,7 @@ for (let i = 0; i < currencySymbolDisplay.length; i++) {
 
 function hasUsername(){
     //Returns boolean (whether user has registered a usernme)
-    username = localStorage.getItem("username");
-    if (username !== "none") {
+    if (localStorage.hasOwnProperty("username")) {
         return 1;
     } else {
         return 0;

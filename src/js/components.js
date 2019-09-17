@@ -235,8 +235,7 @@ function loadSettings(){
         document.getElementById('displayUsername').innerHTML = localStorage.getItem("username");
     }
     else{
-        document.getElementsByClassName('regUsername')[0].style.display = 'flex';   
-        document.getElementsByClassName('regUsernameForm')[0].style.display = 'flex'; 
+        document.getElementsByClassName('regUsername')[0].style.display = 'flex'; 
     }
 }
 
