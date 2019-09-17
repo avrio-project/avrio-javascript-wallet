@@ -149,7 +149,7 @@
                             <h4>You've registered the username <b id="displayUsername">Bob123</b></h4>
                         </div>
                     </div>
-                    
+
                     <div class="regUsername">
                         <div class="flex-col">
                             <i data-feather="user"></i>
@@ -180,6 +180,24 @@
 
                         <a class="button primary" onclick="submitUsername()" id="regUsernameBtn">Register (Fee: 0.5AIO)</a>
                     </div>
+
+                    <br>
+
+                    <h5 class="grey">Choose alternative currency</h5>
+                    <select id="pickCurrency" class="options" onchange="changeCurrency(this.value)">
+                    </select>
+
+                    <br><br>
+
+                    <h5 class="grey">Choose node</h5>
+                    <div class="inputGroup">
+                        <input id="chooseNode" type="text" class="amount" autocomplete="off" placeholder="Choose node">
+
+                        <div class="amountSuffix" id="regUsernameStatus" onclick="changeNode()">
+                            <i data-feather="arrow-right"></i>
+                        </div> 
+                    </div>
+
 
                 </div>
             </div>

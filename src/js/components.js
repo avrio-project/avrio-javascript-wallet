@@ -160,7 +160,7 @@ function pinCodeStart(){
     document.getElementById('pin4').addEventListener('keyup', updatePinCode);
     document.getElementById('pin5').addEventListener('keyup', updatePinCode);
     document.getElementById('pin6').addEventListener('keyup', updatePinCode);
-    
+
     document.getElementById('pinc1').addEventListener('keyup', updatePinCodeC);
     document.getElementById('pinc2').addEventListener('keyup', updatePinCodeC);
     document.getElementById('pinc3').addEventListener('keyup', updatePinCodeC);
@@ -227,7 +227,10 @@ function updatePinCodeC(){
 
 //Loads the settings in dashboard.html
 function loadSettings(){
+    document.getElementById('pickCurrency').innerHTML = "";
     document.getElementById('chooseUsername').addEventListener('input', resetPickUsername);   
+    document.getElementById('chooseNode').value = getCurrentNode(); 
+    
     if(hasUsername()){
         document.getElementsByClassName('regUsername')[0].style.display = 'none';   
         document.getElementsByClassName('regUsernameForm')[0].style.display = 'none'; 
@@ -237,6 +240,12 @@ function loadSettings(){
     else{
         document.getElementsByClassName('regUsername')[0].style.display = 'flex'; 
     }
+
+    for (let i = 0; i <= currencyCodes.length; i++) {
+        if(currencyCodes[i] !== undefined){
+            document.getElementById('pickCurrency').innerHTML += '<option value="'+currencyCodes[i]+'">'+currencyCodes[i].toUpperCase()+' ('+currencySymbols[currencyCodes[i]]+')</option>';
+        }
+    }
 }
 
 
@@ -244,6 +253,7 @@ function loadSettings(){
 function resetPickUsername(){
     document.getElementById('regUsernameStatus').innerHTML = '<i data-feather="arrow-right"></i>';
     document.getElementById('usernameError').style.display = "none";
+    document.getElementById('regUsernameBtn').style.display = 'none';
     feather.replace();
 }
 

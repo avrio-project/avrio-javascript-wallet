@@ -46,7 +46,7 @@ balaio = Math.floor(((Math.random() * 50) /403) *403.23435) + 1 ; // getBalance(
     //let keysT = getKeys();
     //getBalance(keysT[0]);
     //let txns = getTxns(keysT[0]);
-    //for (let i = 0; i <= txns.lenght(); i++) {
+    //for (let i = 0; i <= txns.length; i++) {
         //addTransaction(txns[i]);
     //}
 //}
@@ -126,4 +126,26 @@ function registerUsername(username){
     //Return true on success
     return true;
 }
+
+function changeCurrency(code){
+    //Changes the user's fiat currency to code
+    if(currencyCodes.includes(code)){
+        //Change user's currency
+        currencyCode = code;
+        aioprice = 0.87; //Price of new currency
+        //FUTURE: put currency in localStorage, then reload page to update everything.
+        //location.reload();
+    }
+}
+
+function changeNode(){
+    //Changes to the user's preferred node
+    newNode = document.getElementById('chooseNode').value;
+}
+
+function getCurrentNode(){
+    //Returns the node the user has currently chosen
+    return "1.1.1.1";
+}
+
 // END TODO;

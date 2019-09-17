@@ -374,6 +374,20 @@ input.advanced{
     margin-top: 20px;
 }
 
+select.options{
+    height: 50px;
+    width: 100%;
+    margin: 0px;
+    border: 0.5px solid rgb(var(--grey));
+    border-radius: 8px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 8px;   
+}
+
 /* Verification badge */
 .idbox{
     background-color: rgba(var(--success),0.2);
@@ -410,7 +424,7 @@ input.advanced{
     background-color: rgba(var(--grey),0.7);
     display: flex;
     justify-content: center;
-    
+
 }
 
 #receiveFunds .card, #settings .card{
