@@ -138,7 +138,7 @@ function changeNode(){
 
 function getCurrentNode(){
     //Returns the node the user has currently chosen
-    return noedip;
+    return nodeip;
 }
 
 // END TODO;
