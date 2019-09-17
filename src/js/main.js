@@ -130,6 +130,7 @@ function changeCurrency(code){
         //location.reload();
     }
 }
+// END TODO;
 
 function changeNode(){
     //Changes to the user's preferred node
@@ -140,5 +141,3 @@ function getCurrentNode(){
     //Returns the node the user has currently chosen
     return noedip;
 }
-
-// END TODO;

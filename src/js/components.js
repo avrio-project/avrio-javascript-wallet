@@ -24,8 +24,9 @@ function sendAmountChange() {
 
     if (document.getElementById('sendCurrency').options[document.getElementById('sendCurrency').selectedIndex].value == 'io') {
         document.getElementById('sendAmountEquiv').innerHTML = `(${currencySymbols[currencyCode] + ((document.getElementById('sendAmount').value) * aioprice)})`;
-
-        if (balaio < document.getElementById('sendAmount').value) {
+        let MaxGas = document.getElementById('maxGas').value = document.getElementById('maxGas').value.replace(/[^0-9\.]+/g, '');
+        let feeestimate = MaxGas * document.getElementById('gasPrice').value;
+        if (balaio < document.getElementById('sendAmount').value + feeestimate) {
             document.getElementById('sendTransactionButton').disabled = true;
             document.getElementById('sendAmount').classList.add('error');
             document.getElementById('amountLabel').innerHTML = 'Amount <span style="color:rgb(var(--danger))">(Insufficient funds!)</span>';
