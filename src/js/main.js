@@ -1,7 +1,5 @@
 // Copywrite 2019-2020 The Avrio Project Devs
 
-let nodeip;
-
 const months = [
     'Jan',
     'Feb',
@@ -17,43 +15,180 @@ const months = [
     'Dec'
 ];
 
-let balfiat = 0; // set defult balance to 0
-let balaio = 0; 
-let aioprice = 0.80; // static price of £0.80 untill we get a exchange (as this is around the target value)
-let address = "";
-let username = "";
-const currencyCodes= [
-    'gbp',
-    'usd',
-    'eur'
-];
-let currencyCode = 'gbp' //The current currency code
-const currencySymbols = {
-    gbp: '£',
-    usd: '$',
-    eur: '€'
-};
+
+var wallet = new Vue({
+    el: '#wallet',
+    data: {
+        balfiat: 0, // set defult balance to 0
+        balaio: 0,
+        aioprice: 0.80, // static price of £0.80 untill we get a exchange
+        address: "",
+        username: "",
+        currencyCode: "gbp",
+        nodeip: "",
+        currencyCodes: [
+            'gbp',
+            'usd',
+            'eur'
+        ],
+        currencySymbols: {
+            gbp: '£',
+            usd: '$',
+            eur: '€'
+        },
+        
+        showSettings: false
+        
+    }
+})
+
+Vue.component('settings-modal',{
+    props: ['username','nodeip','currency'],
+    template: `<div id="settings">
+                <div class="card">
+                    <div class="top-right">
+                        <a id="settingsClose" @click="$emit('close')" class="discreet-button"><ion-icon class="fixicon" name="close"></ion-icon></a>
+                    </div>
+
+                    <br><br>
+
+                    <div class="idbox" v-if="username.length > 0">
+                        <div class="flex-col">
+                            <ion-icon name="contact" class="fixicon"></ion-icon>
+                        </div>
+
+                        <div class="flex-col">
+                            <h4>You've registered the username <b id="displayUsername">{{username}}</b></h4>
+                        </div>
+                    </div>
+
+                    <div class="regUsername" v-else>
+                        <div class="flex-col">
+                            <i data-feather="user"></i>
+                        </div>
+
+                        <div class="flex-col">
+                            <h4>
+                                <b style="padding-left: 7px;">You haven't registered a username yet!</b>
+                                <a class="discreet-button" v-if="!showRegUsername" @click="showRegUsername = true" style="color: #fff; text-decoration: underline;">Register now</a>
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div v-if="showRegUsername">
+                        <br>
+
+                        <div class="inputGroup">
+                            <input id="chooseUsername" @input="usernameStatus=0; regFailed=false" type="text" class="amount" autocomplete="off" placeholder="Choose username">
+
+                            <div class="amountSuffix" onclick="chooseUsername()">
+                                <ion-icon @click="chooseUsername()" v-if="usernameStatus==0" name="arrow-round-forward"></ion-icon>
+                                <ion-icon style="color: rgb(var(--danger))" v-else-if="usernameStatus==1" name="close"></ion-icon>
+                                <ion-icon style="color: rgb(var(--success))" v-else name="checkmark"></ion-icon>
+                            </div> 
+                        </div>
+
+                        <h5 style="color: rgb(var(--danger))" v-if="regFailed">Uh oh! Could not register username.</h5>
+
+                        <br>
+
+                        <a class="button primary" v-if="usernameStatus==2" @click="registerUsername()">Register (Fee: 0.5AIO)</a>
+                    </div>
+
+                    <br>
+
+                    <h5 class="grey">Choose alternative currency</h5>
+                    <select id="pickCurrency" class="options" @change="changeCurrency()">
+                        <option v-for="cc in currencies()" v-bind:selected="isCurrent(cc)" v-bind:value="cc">{{currencySymbol(cc) + " " + cc.toUpperCase()}}</option>
+                    </select>
+
+                    <br><br>
+
+                    <h5 class="grey">Choose node</h5>
+                    <div class="inputGroup">
+                        <input id="chooseNode" @input="nodeChanged = true" type="text" class="amount" autocomplete="off" placeholder="Choose node" v-bind:value="nodeip">
+
+                        <div class="amountSuffix">
+                            <ion-icon @click="changeNode()" v-if="nodeChanged" name="arrow-round-forward"></ion-icon>
+                        </div> 
+                    </div>
+                    <h5 style="color: rgb(var(--danger))" v-if="nodeChangeFail">Uh oh! Could not use this node.</h5>
+
+
+                </div>
+            </div>`,
+    data: function(){
+        return{
+            showRegUsername: false,
+            usernameStatus: 0, // 0-Username not checked, 1-Username not available 2-Username available
+            regFailed: false,
+            nodeChanged: false,
+            nodeChangeFail: false
+        }
+    },
+    methods:{
+        chooseUsername: function(){
+            if(checkUsernameAvailability(document.getElementById('chooseUsername').value)){
+                this.usernameStatus = 2;
+            }
+            else{
+                this.usernameStatus = 1;
+            }
+        },
+        currencies: function(){
+            return wallet.currencyCodes;
+        },
+        currencySymbol: function(code){
+            return wallet.currencySymbols[code];  
+        },
+        changeCurrency: function(){
+            changeCurrency(document.getElementById('pickCurrency').value);
+        },
+        isCurrent: function(code){
+            if(wallet.currencyCode == code){
+                return "selected";
+            }
+            else{
+                return "";
+            }
+        },
+        registerUsername: function(){
+            if(!registerUsername(document.getElementById('chooseUsername').value)){
+                this.regFailed = true;    
+            }
+        },
+        changeNode: function(){
+            if(!changeNode(document.getElementById('chooseNode').value)){
+                this.nodeChangeFail = true;
+            }
+            else{
+                this.nodeChanged = false;
+            }
+        }
+    }
+
+})
 
 const refreshInterval = 60 * 2.5; // refresh every 2 and a half mins
 
-balaio = Math.floor(((Math.random() * 50) /403) *403.23435) + 1 ; // getBalance(publicKey);
+wallet.balaio = Math.floor(((Math.random() * 50) /403) *403.23435) + 1 ; 
+// getBalance(publicKey);
 
 //let keys = getKeys();
 //let publicKey = keys[0];
 //let privateKey = keys[1];/
 
 //function refresh() {
-    //let keysT = getKeys();
-    //getBalance(keysT[0]);
-    //let txns = getTxns(keysT[0]);
-    //for (let i = 0; i <= txns.length; i++) {
-        //addTransaction(txns[i]);
-    //}
+//let keysT = getKeys();
+//getBalance(keysT[0]);
+//let txns = getTxns(keysT[0]);
+//for (let i = 0; i <= txns.length; i++) {
+//addTransaction(txns[i]);
+//}
 //}
 
-balfiat = aioprice * balaio;
-document.getElementById('aiobal').innerHTML = balaio;
-document.getElementById('fiatbal').innerHTML = (Math.round(balfiat*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
+wallet.balfiat = wallet.aioprice * wallet.balaio;
+wallet.balfiat = (Math.round(wallet.balfiat*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
 
 
 //Adds transaction to list    
@@ -61,7 +196,7 @@ document.getElementById('fiatbal').innerHTML = (Math.round(balfiat*Math.pow(10,2
 //amountgbp = amountio * aioprice; 
 
 function addTransaction(type, party, timestamp, amountio) {
-    amountfiat = amountio * aioprice;
+    wallet.amountfiat = wallet.amountio * wallet.aioprice;
     let a = new Date(timestamp * 1000);
 
     let year = a.getFullYear();
@@ -82,21 +217,6 @@ function addTransaction(type, party, timestamp, amountio) {
 }
 
 
-// Displays fiat currency code anywhere with class 'currencyCodeDisplay'
-currencyCodeDisplay = document.getElementsByClassName('currencyCodeDisplay');
-for (let i = 0; i < currencyCodeDisplay.length; i++) {
-    currencyCodeDisplay[i].innerHTML = currencyCode.toUpperCase();
-}
-
-// Displays fiat currency code anywhere with class 'currencySymbolDisplay'
-currencySymbolDisplay = document.getElementsByClassName('currencySymbolDisplay');
-for (let i = 0; i < currencySymbolDisplay.length; i++) {
-    currencySymbolDisplay[i].innerHTML = currencySymbols[currencyCode];
-}
-
-//document.getElementById('address').innerHTML = username;
-
-
 //Settings page
 
 function hasUsername(){
@@ -108,7 +228,7 @@ function hasUsername(){
     }
 
 }
- // TODO :
+// TODO :
 function checkUsernameAvailability(username){
     //Returns true if the username username is available to register
     return Math.random() >= 0.5; //Random bool
@@ -117,29 +237,29 @@ function checkUsernameAvailability(username){
 function registerUsername(username){
     //Registers the username
     //Return true on success
-    return true;
+    return false;
 }
 
 function changeCurrency(code){
     //Changes the user's fiat currency to code
-    if(currencyCodes.includes(code)){
+    if(wallet.currencyCodes.includes(code)){
         //Change user's currency
-        currencyCode = code;
-        aioprice = 0.87; //Price of new currency
-        //FUTURE: put currency in localStorage, then reload page to update everything.
-        //location.reload();
+        wallet.currencyCode = code;
+        wallet.aioprice = 0.87; //Price of new currency
     }
 }
 // END TODO;
 
-function changeNode(){
+function changeNode(newNode){
     //Changes to the user's preferred node
-    nodeip = document.getElementById('chooseNode').value;
+    wallet.nodeip = newNode;
+    return true; //Return true if successfully changed
 }
 
 function getCurrentNode(){
     //Returns the node the user has currently chosen
-    return nodeip;
+    return wallet.nodeip;
 }
 
 // END TODO;
+

@@ -1,3 +1,8 @@
+
+
+
+
+
 let advancedEnabled = false;
 
 function loadDashboard() {
@@ -5,7 +10,7 @@ function loadDashboard() {
     document.getElementById('sendCurrency').addEventListener('change', sendCurrencyChange);
     document.getElementById('sendBtn').addEventListener('click', sendModal);
     document.getElementById('sendFundsClose').addEventListener('click', closeSendModal);
-    document.getElementById('settingsBtn').addEventListener('click', settingsModal);
+    
     document.getElementById('settingsClose').addEventListener('click', closeSettingsModal);
     document.getElementById('receiveFundsClose').addEventListener('click', closeReceiveModal);
     document.getElementById('receiveBtn').addEventListener('click', receiveModal);
@@ -231,11 +236,9 @@ function loadSettings(){
     document.getElementById('pickCurrency').innerHTML = "";
     document.getElementById('chooseUsername').addEventListener('input', resetPickUsername);   
     document.getElementById('chooseNode').value = getCurrentNode(); 
-    
+
     if(hasUsername()){
-        document.getElementsByClassName('regUsername')[0].style.display = 'none';   
-        document.getElementsByClassName('regUsernameForm')[0].style.display = 'none'; 
-        document.getElementById('usernameBanner').style.display = "flex";
+        document.getElementsByClassName('regUsername')[0].style.display = 'none';  
         document.getElementById('displayUsername').innerHTML = localStorage.getItem("username");
     }
     else{

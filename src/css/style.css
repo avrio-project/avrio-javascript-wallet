@@ -301,7 +301,7 @@ div.amountSuffix{
     justify-content: center;
 }
 
-div.amountSuffix svg{
+div.amountSuffix ion-icon{
     color: rgb(var(--text-grey));
     height: 20px;
 }
@@ -488,14 +488,4 @@ select.options{
     display: none;
 }
 
-#regUsernameBtn{
-    display: none;
-}
 
-#usernameError{
-    display: none;
-}
-
-#usernameBanner{
-    display: none;
-}

@@ -11,19 +11,19 @@
     </head>
 
     <body>
-        <div class="main">
+        <div class="main" id="wallet">
             <div class="card card-top">
                 <div class="logo-group">
                     <img class="logo" src="img/logo.png">
 
-                    <h3>Aviro <a class="discreet-button" id="settingsBtn"><i class="fixicon" data-feather="settings"></i></a></h3>
+                    <h3>Aviro<a class="discreet-button" id="settingsBtn" @click="showSettings = true"><i class="fixicon" data-feather="settings"></i></a></h3>
                 </div>
             </div>
 
             <div class="card">
-                <h5 class="grey nobottom"><i class="fixicon" data-feather="credit-card"></i> <span id="walletname"></span></h5>
-                <h1><span id="aiobal"></span> <small>AIO</small></h1>
-                <h4 class="grey"><b><span class="currencySymbolDisplay"></span><span id="fiatbal"></span> <span class="currencyCodeDisplay"></span></b></h4>
+                <h5 class="grey nobottom"><i class="fixicon" data-feather="credit-card"></i> {{username}}</h5>
+                <h1>{{balaio}} <small>AIO</small></h1>
+                <h4 class="grey"><b>{{currencySymbols[currencyCode] + balfiat + " " + currencyCode.toUpperCase()}}</b></h4>
 
                 <br>
 
@@ -132,75 +132,7 @@
                 </div>
             </div>
 
-            <div id="settings" class="hide">
-                <div class="card">
-                    <div class="top-right">
-                        <a id="settingsClose" class="discreet-button"><i class="fixicon" data-feather="x"></i></a>
-                    </div>
-
-                    <br><br>
-
-                    <div class="idbox" id="usernameBanner">
-                        <div class="flex-col">
-                            <i data-feather="user-check"></i>
-                        </div>
-
-                        <div class="flex-col">
-                            <h4>You've registered the username <b id="displayUsername">Bob123</b></h4>
-                        </div>
-                    </div>
-
-                    <div class="regUsername">
-                        <div class="flex-col">
-                            <i data-feather="user"></i>
-                        </div>
-
-                        <div class="flex-col">
-                            <h4>
-                                <b style="padding-left: 7px;">You haven't registered a username yet!</b>
-                                <a class="discreet-button" onclick="document.getElementsByClassName('regUsernameForm')[0].style.display = 'block';" style="color: #fff; text-decoration: underline;">Register now</a>
-                            </h4>
-                        </div>
-                    </div>
-
-                    <div class="regUsernameForm">
-                        <br>
-
-                        <div class="inputGroup">
-                            <input id="chooseUsername" type="text" class="amount" autocomplete="off" placeholder="Choose username">
-
-                            <div class="amountSuffix" id="regUsernameStatus" onclick="chooseUsername()">
-                                <i data-feather="arrow-right"></i>
-                            </div> 
-                        </div>
-
-                        <h5 style="color: rgb(var(--danger))" id="usernameError">Uh oh! Could not register username.</h5>
-
-                        <br>
-
-                        <a class="button primary" onclick="submitUsername()" id="regUsernameBtn">Register (Fee: 0.5AIO)</a>
-                    </div>
-
-                    <br>
-
-                    <h5 class="grey">Choose alternative currency</h5>
-                    <select id="pickCurrency" class="options" onchange="changeCurrency(this.value)">
-                    </select>
-
-                    <br><br>
-
-                    <h5 class="grey">Choose node</h5>
-                    <div class="inputGroup">
-                        <input id="chooseNode" type="text" class="amount" autocomplete="off" placeholder="Choose node">
-
-                        <div class="amountSuffix" id="regUsernameStatus" onclick="changeNode()">
-                            <i data-feather="arrow-right"></i>
-                        </div> 
-                    </div>
-
-
-                </div>
-            </div>
+            <settings-modal v-if="showSettings" v-on:close="showSettings = false" v-bind:username="username" v-bind:nodeip="nodeip" v-bind:currency="currencyCode"></settings-modal>
 
             <div class="card">
                 <h4 class="grey">Transactions</h4>
@@ -212,11 +144,14 @@
 
         </div>
 
+        <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="https://unpkg.com/feather-icons"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="src/js/main.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
         <script src="src/js/components.js"></script>
+        
 
         <script>
             feather.replace();
