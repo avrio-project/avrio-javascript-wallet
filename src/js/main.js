@@ -37,7 +37,8 @@ var wallet = new Vue({
             eur: '€'
         },
         
-        showSettings: false
+        showSettings: false,
+        showSend: false
         
     }
 })
@@ -81,7 +82,7 @@ Vue.component('settings-modal',{
                         <div class="inputGroup">
                             <input id="chooseUsername" @input="usernameStatus=0; regFailed=false" type="text" class="amount" autocomplete="off" placeholder="Choose username">
 
-                            <div class="amountSuffix" onclick="chooseUsername()">
+                            <div class="amountSuffix">
                                 <ion-icon @click="chooseUsername()" v-if="usernameStatus==0" name="arrow-round-forward"></ion-icon>
                                 <ion-icon style="color: rgb(var(--danger))" v-else-if="usernameStatus==1" name="close"></ion-icon>
                                 <ion-icon style="color: rgb(var(--success))" v-else name="checkmark"></ion-icon>
@@ -169,6 +170,137 @@ Vue.component('settings-modal',{
 
 })
 
+Vue.component('send-modal',{
+    props: ['currency'],
+    template: `            
+        <div id="sendFunds">
+                <div class="card">
+                    <h3>Send funds</h3>
+
+                    <div class="top-right">
+                        <a @click="$emit('close')" class="discreet-button"><ion-icon name="close" class="fixicon"></ion-icon></a>
+                    </div>
+
+                    <br>
+
+                    <h5 class="grey"><b id="amountLabel">Amount</b> <span v-if="insufficient" style="color:rgb(var(--danger))">(Insufficient funds!)</span></h5>
+
+                    <div class="inputGroup">
+                        <input @input="updateEstimate()" type="text" onkeypress="validate(event,this)" class="amount" id="sendAmount" autocomplete="off" value="0" v-model:value="sendAmount">
+                        <select @change="updateEstimate()" class="amountSuffix" id="sendCurrency" autocomplete="off" v-model:value="sendCurrency">
+                            <option value="aio" selected="selected">AIO</option>
+                            <option value="fiat">{{currency.toUpperCase()}}</option>
+                        </select> 
+                    </div>
+
+                    <h5 class="grey" v-if="sendCurrency == 'fiat'">{{(sendAmount/aioprice()) + ' AIO'}}</h5>
+                    <h5 class="grey" v-else>{{ currencySymbol(currency)+num2dp(sendAmount*aioprice()) + ' ' + currency.toUpperCase()}}</h5>
+
+                    <br>
+
+                    <h5 class="grey"><b>Recipient Address</b></h5>
+
+                    <div class="inputGroup">
+                        <input id="sendRecipient" type="text" class="amount" autocomplete="off" v-model="recipient">
+                        <div class="amountSuffix" @click="recipient = ''">
+                            <ion-icon v-if="recipient.length > 0" name="close-circle-outline"></ion-icon>
+                        </div> 
+                    </div>
+
+                    <br>
+
+                    <h5 class="grey"><b>Estimated Fee (<i>{{estimate}}</i> AIO)<a class="discreet-button" @click="advancedOptions=!advancedOptions" style="float: right;"><i class="fixicon" data-feather="settings"></i> Advanced options</a></b></h5>
+
+                    <div v-if="advancedOptions" class="advancedOptions">
+                        <div>
+                            <h5 class="grey">Gas price</h5>
+                            <input v-model:value="gasPrice" @input="updateEstimate()" onkeypress="validate(event,this)" placeholder="Gas price" type="text" class="advanced" autocomplete="off" value="0.001">
+                        </div>
+                        <div>
+                            <h5 class="grey">Max gas</h5>
+                            <input v-model:value="maxGas" @input="updateEstimate()" onkeypress="validate(event,this)" placeholder="Max gas" type="text" class="advanced" autocomplete="off" >
+                        </div>
+                        <div>
+                            <h5 class="grey">Message</h5>
+                            <input v-model:value="message" @input="updateEstimate()" placeholder="Message" maxlength="100" type="text" class="advanced" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!--  FOR THE FUTURE: 'Verified user' box 
+<div class="idbox">
+<div class="flex-col">
+<i data-feather="user-check"></i>
+</div>
+<div class="flex-col">
+<h4><b>Verified user</b> &nbsp;&nbsp;Signed by <i>https://google.co.uk</i></h4>
+</div>
+</div>
+-->
+
+                    <br><br>
+
+                    <button v-if="!sendWarning && !insufficient" class="button big-btn" id="sendTransactionButton" href="#">Send</button>
+                    <h5 style="color: rgb(var(--danger)); margin-top: 20px;"><b v-if="sendWarning">Warning, estimated gas exceeds max gas!</b></h5>
+                </div>
+            </div>`,
+    data: function(){
+        return{
+            advancedOptions: false,
+            recipient: "",
+            sendCurrency: "aio",
+            sendAmount: "0.00",
+            sendWarning: false,
+            insufficient: false,
+            gasPrice: 0.001,
+            maxGas: 50,
+            message: "",
+            estimate: 0
+        }
+    },
+    methods: {
+        currencies: function(){
+            return wallet.currencyCodes;
+        },
+        currencySymbol: function(code){
+            return wallet.currencySymbols[code];  
+        },
+        aioprice: function(){
+            return wallet.aioprice;
+        },
+        num2dp: function(num){
+            return num2dp(num);
+        },
+        updateEstimate: function(){
+             
+            if((this.sendAmount > wallet.balaio * wallet.aioprice) && (this.sendCurrency == "fiat")){
+                this.insufficient = true;   
+            }
+            else if((this.sendAmount > wallet.balaio) && (this.sendCurrency == "aio")){
+                this.insufficient = true;   
+            }
+            else{
+                this.insufficient = false;
+            }
+        
+            if (this.message.length > 100) {
+                this.message = this.message.substring(0,100);
+            }
+            let gasEstimation = ((2000 + (this.message.length * 60)) / 100);
+            this.estimate = gasEstimation * this.gasPrice;
+            if (this.maxGas < gasEstimation) {
+                this.sendWarning = true;
+            } else {
+                this.sendWarning = false;
+            } 
+        }
+    },
+    beforeMount(){
+        this.updateEstimate();
+    }
+})
+
 const refreshInterval = 60 * 2.5; // refresh every 2 and a half mins
 
 wallet.balaio = Math.floor(((Math.random() * 50) /403) *403.23435) + 1 ; 
@@ -216,6 +348,10 @@ function addTransaction(type, party, timestamp, amountio) {
     feather.replace();
 }
 
+//Converts number to 2dp
+function num2dp(num){
+    return (Math.round(num*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
+}
 
 //Settings page
 

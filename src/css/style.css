@@ -362,15 +362,14 @@ input.advanced{
     width: 100%;
 }
 
-#advancedOptions div{
+.advancedOptions div{
     margin-right: 2.33%;
     width: 31%;
 }
 
-#advancedOptions{
+.advancedOptions{
     display: flex;
     flex-direction: row;
-    display: none;
     margin-top: 20px;
 }
 
