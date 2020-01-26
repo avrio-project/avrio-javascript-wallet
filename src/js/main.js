@@ -1,5 +1,5 @@
 // Copywrite 2019-2020 The Avrio Project Devs
-
+// Copywrite 2019 Turlecoin devs (some of the js was adapted from https://github.com/turtlecoin/turtlecoin-wallet-backend-js/blob/master/examples/example1/index.js)
 const months = [
     'Jan',
     'Feb',
@@ -14,8 +14,14 @@ const months = [
     'Nov',
     'Dec'
 ];
-
-
+function getWallet() {
+    return localstorage.getItem("Wallet");
+}
+function getKeys(wallet) {
+    let keys = ["",""];
+    keys[0] = localStorage.getItem("publicKey");
+    keys[1] = localStorage.getItem("privateKey");
+}
 var wallet = new Vue({
     el: '#wallet',
     data: {
@@ -38,8 +44,7 @@ var wallet = new Vue({
         },
         
         showSettings: false,
-        showSend: false
-        
+        showSend: false,
     }
 })
 
@@ -303,21 +308,19 @@ Vue.component('send-modal',{
 
 const refreshInterval = 60 * 2.5; // refresh every 2 and a half mins
 
-wallet.balaio = Math.floor(((Math.random() * 50) /403) *403.23435) + 1 ; 
-// getBalance(publicKey);
+wallet.balaio = getBalance(publicKey);
+ let keys = getKeys();
+let publicKey = keys[0];
+let privateKey = keys[1];
 
-//let keys = getKeys();
-//let publicKey = keys[0];
-//let privateKey = keys[1];/
-
-//function refresh() {
-//let keysT = getKeys();
-//getBalance(keysT[0]);
-//let txns = getTxns(keysT[0]);
-//for (let i = 0; i <= txns.length; i++) {
-//addTransaction(txns[i]);
-//}
-//}
+function refresh() {
+    let keysT = getKeys();
+    getBalance(keysT[0]);
+    let txns = getTxns(keysT[0]);
+    for (let i = 0; i <= txns.length; i++) {
+        addTransaction(txns[i]);
+    }
+}
 
 wallet.balfiat = wallet.aioprice * wallet.balaio;
 wallet.balfiat = (Math.round(wallet.balfiat*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
