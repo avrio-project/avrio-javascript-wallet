@@ -14,6 +14,9 @@ const months = [
     'Nov',
     'Dec'
 ];
+function getBalance(publicKey) {
+    return 10; // todo
+}
 function getWallet() {
     return localstorage.getItem("Wallet");
 }
