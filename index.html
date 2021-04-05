@@ -5,207 +5,201 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Aviro wallet</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="src/css/style.css">
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-        <link rel="icon" href="favicon.ico" type="image/x-icon">  
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    </head>
 
-    <body>
-   
-	    
-        <script>
-	    const rpc_port = 12345;
-	    const daemon = new WB.Daemon('api.avrio.tk', rpc_port);
-            function gocreatewallet() { // creates a wallet file then passes that data to index.html
-                let walletname = document.getElementById("createwallet").elements[0].value;
-                let pin = document.getElementById("createWalletPincode").value;
-                let keys = ['', ''];//generateKeypair();
-                const newWallet = WB.WalletBackend.createWallet(daemon);
-                wallet = newWallet;
-		localstorage.setItem("Wallet",wallet);
-		wallet.setLogLevel(WB.LogLevel.DEBUG);
-                await wallet.start();
-    		console.log('Started wallet');
-    		console.log('Address: ' + wallet.getPrimaryAddress());
-    		const [unlockedBalance, lockedBalance] = wallet.getBalance();
-		localstorage.setItem("unlockedBalance", unlockedBalance);
-		localsotrage.setITem("lockedBalance",lockedBalance);
-                download(wallet,"avrio-wallet" + keys[1] +".wallet");
-		    
-                function download(blob,name) {
-				let url = URL.createObjectURL(blob),
-					div = document.createElement("div"),
-					anch = document.createElement("a");
- 
-				document.body.appendChild(div);
-				div.appendChild(anch);
- 
-				anch.innerHTML = "&nbsp;";
-				div.style.width = "0";
-				div.style.height = "0";
-				anch.href = url;
-				anch.download = name;
-				
-				let ev = new MouseEvent("click",{});
-				anch.dispatchEvent(ev);
-				document.body.removeChild(div);
-			}
- 
+<head>
+    <title>Aviro wallet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="src/css/style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
 
-                window.location = ("dashboard.html");
+<body>
+
+
+    <script>
+        function goviafile() { // Loads the data from a wallet file,  decrypts it (where needed) and then passes it to index.html (via loaclStorage)
+            let file = document.getElementById("walletFile").files[0];
+            let key = document.getElementById("loadWalletPincode").value;
+            let reader = new FileReader();
+            reader.readAsText(file, "UTF-8");
+            reader.onload = function(evt) {
+                let result = evt.target.result;
             }
-            function goviafile() { // Loads the data from a wallet file,  decrypts it (where needed) and then passes it to index.html (via loaclStorage)
-                let file =  document.getElementById("walletFile").files[0];
-                let key = document.getElementById("loadWalletPincode").value;
-                let reader = new FileReader();
-                reader.readAsText(file, "UTF-8");
-                reader.onload = function (evt) {
-                    let result = evt.target.result;
+            const [openedWallet, error] = WB.WalletBackend.openWalletFromEncryptedString(daemon, result, pin);
+
+            if (error) {
+                console.log('Failed to open wallet: ' + error.toString());
+                return;
+            }
+            wallet = openedWallet;
+            localStorage.setItem("Wallet", wallet);
+            wallet.setLogLevel(WB.LogLevel.DEBUG);
+            await wallet.start();
+            console.log('Started wallet');
+            console.log('Address: ' + wallet.getPrimaryAddress());
+            const [unlockedBalance, lockedBalance] = wallet.getBalance();
+            localstorage.setItem("unlockedBalance", unlockedBalance);
+            localsotrage.setITem("lockedBalance", lockedBalance);
+            window.location = ("dashboard.html");
+        }
+
+        function private_key_to_public() {
+            return "HQCaXeLNkRadNt4X1HV1sh5wy7oygVPtTXq2jVuKEoxz" // TODO: get_keypair
+
+        }
+
+        function goviapk() { // passes privateKey to index.html
+            let private_key = document.getElementById("viapk").elements[0].value;
+            let public_key = private_key_to_public(private_key);
+            wallet = new Vue({
+                el: '#wallet',
+                data: {
+                    balfiat: 0, // set defult balance to 0
+                    balaio: 0,
+                    aioprice: 0.80, // static price of £0.80 untill we get a exchange
+                    address: "",
+                    username: "",
+                    currencyCode: "gbp",
+                    nodeip: "http://5.189.172.54:1234",
+                    currencyCodes: [
+                        'gbp',
+                        'usd',
+                        'eur'
+                    ],
+                    currencySymbols: {
+                        gbp: '£',
+                        usd: '$',
+                        eur: '€'
+                    },
+
+                    showSettings: false,
+                    showSend: false,
                 }
-                const [openedWallet, error] =WB.WalletBackend.openWalletFromEncryptedString(daemon, result, pin);
+            })
+            localStorage.setItem("Wallet", wallet);
+            localStorage.setItem("publicKey", public_key)
+            localStorage.setItem("publicKey", private_key)
 
-                if (error) {
-                   console.log('Failed to open wallet: ' + error.toString());
-                   return;
-                }
-                wallet = openedWallet;
-                localStorage.setItem("Wallet", wallet);
-		wallet.setLogLevel(WB.LogLevel.DEBUG);
-                await wallet.start();
-    		console.log('Started wallet');
-    		console.log('Address: ' + wallet.getPrimaryAddress());
-    		const [unlockedBalance, lockedBalance] = wallet.getBalance();
-		localstorage.setItem("unlockedBalance", unlockedBalance);
-		localsotrage.setITem("lockedBalance",lockedBalance);
-                window.location = ("dashboard.html");
-            }
-            function goviapk() { // passes privateKey to index.html
-		const wallet[openedWallet, error] = WB.WalletBackend.importWalletFromSeed(daemon, 0, document.getElementById("viapk").elements[0].value), document.getElementById("viapk").elements[1].value));
-                wallet = openedWallet;
-                localStorage.setItem("Wallet", wallet);
-		wallet.setLogLevel(WB.LogLevel.DEBUG);
-                await wallet.start();
-    		console.log('Started wallet');
-    		console.log('Address: ' + wallet.getPrimaryAddress());
-    		const [unlockedBalance, lockedBalance] = wallet.getBalance();
-		localstorage.setItem("unlockedBalance", unlockedBalance);
-		localsotrage.setITem("lockedBalance",lockedBalance);
-                window.location = ("dashboard.html");
-            }
-        </script>
-        <div class="main">
+            console.log('Started wallet');
+            console.log('Address: ' + public_key);
+            const [unlockedBalance, lockedBalance] = wallet.getBalance();
+            localstorage.setItem("unlockedBalance", unlockedBalance);
+            localsotrage.setITem("lockedBalance", lockedBalance);
+            window.location = ("dashboard.html");
+        }
+    </script>
+    <div class="main">
 
-            <div class="card card-top">
-                <div class="logo-group">
-                    <img class="logo" src="img/logo.png">
+        <div class="card card-top">
+            <div class="logo-group">
+                <img class="logo" src="img/logo.png">
 
-                    <h3>Aviro</h3>
-                </div>
-            </div>
-
-            <div class="card">
-                <center>
-                    <h2>Load wallet</h2>
-                    <br>
-                    <input type="file" id="walletFile" name="walletFile" style="display: none;">
-                    <button onclick="document.getElementById('walletFile').click();" class="button" id="sendTransactionButton" href="#"><i class="fixicon" data-feather="upload"></i> Choose Wallet file</button>
-                    <br><br><br>
-                    <h5 class="grey">Enter your pin</h5>
-                    
-                    <div class="pincode-group">
-                        <!-- Pincode is stored here -->
-                        <input id="loadWalletPincode" autocomplete="off" style="display: none;">
-                        
-                        <!-- Ignore below! Get pincode from above input-->
-                        <input id="pin1" autocomplete="off" class="pincodeInput" type="text">
-                        <input id="pin2" autocomplete="off" class="pincodeInput" type="text">
-                        <input id="pin3" autocomplete="off" class="pincodeInput" type="text">
-                        <input id="pin4" autocomplete="off" class="pincodeInput" type="text">
-                        <input id="pin5" autocomplete="off" class="pincodeInput" type="text">
-                        <input id="pin6" autocomplete="off" class="pincodeInput" type="text">
-                    </div>
-
-                    <br>
-
-                    <button style="width: 50%;" class="button primary"  href="#">Load</button>
-
-                </center>
-            </div>
-
-            <div class="card">
-                <center>
-                    <h2> Create Wallet: </h2>
-                </center>
-                <br>
-                <form id="createwallet">
-                    <h5 class="grey"> Choose Wallet name: </h5> 
-                    <div class="inputGroup">
-                        <input id="walletName" type="text" class="amount" autocomplete="off">
-                        <div class="amountSuffix" onclick='document.getElementById("walletName").value = ""; document.getElementById("walletName").focus();'>
-                            <i data-feather="x-circle"></i>
-                        </div> 
-                    </div>
-
-                    <br>
-
-                    <h5 class="grey"> Choose your pin: </h5> 
-
-                    <div class="pincode-group choose">
-                        <!-- Pincode is stored here -->
-                        <input id="createWalletPincode" autocomplete="off" style="display: none;">
-                        
-                        <!-- Ignore below! Get pincode from above input-->
-                        <input id="pinc1" autocomplete="off" class="pincodeInput" type="text">
-                        <input id="pinc2" autocomplete="off" class="pincodeInput" type="text">
-                        <input id="pinc3" autocomplete="off" class="pincodeInput" type="text">
-                        <input id="pinc4" autocomplete="off" class="pincodeInput" type="text">
-                        <input id="pinc5" autocomplete="off" class="pincodeInput" type="text">
-                        <input id="pinc6" autocomplete="off" class="pincodeInput" type="text">
-                    </div>
-
-                    <p><b>NOTE:</b> A pin must be 6 numbers long and is used to unlock your wallet, if you foget your pin you will loose access to your wallet <u><i>forever</i></u></p>
-                    <br><br>
-                </form>
-
-                <center>
-                    <button onclick="gocreatewallet()" style="width: 50%;" class="button primary"  href="#">Create</button>
-                </center>
-
-            </div>
-
-            <div class="card">
-                <center>
-                    <h2> Load Wallet From a Private Key: </h2>
-                </center>
-                <br>
-                <form id="viapk">
-                    <h5 class="grey">Enter your private key: </h5> 
-                    <div class="inputGroup">
-                        <input id="privKey" type="text" class="amount" autocomplete="off" minlength="32" maxlength="32">
-                        <div class="amountSuffix" onclick='document.getElementById("privKey").value = ""; document.getElementById("privKey").focus();'>
-                            <i data-feather="x-circle"></i>
-                        </div> 
-                    </div>
-                </form>
-                <!--pk should be 32 bytes long, example: 0C28FCA386C7A227600B2FE50B7CAE11EC86D3BF1FBE471BE89827E19D72AA1D -->
-                <br>
-                <center>
-                    <button onclick="goviapk()" style="width: 50%;" class="button primary"  href="#">Load</button>
-                </center>
+                <h3>Aviro</h3>
             </div>
         </div>
-        <p id="test"></p>
-        <script src="https://unpkg.com/feather-icons"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <script src="src/js/components.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-        <script>
-            pinCodeStart();
-            feather.replace();
-        </script>
-    </body>
+
+        <div class="card">
+            <center>
+                <h2>Load wallet</h2>
+                <br>
+                <input type="file" id="walletFile" name="walletFile" style="display: none;">
+                <button onclick="document.getElementById('walletFile').click();" class="button" id="sendTransactionButton" href="#"><i class="fixicon" data-feather="upload"></i> Choose Wallet file</button>
+                <br><br><br>
+                <h5 class="grey">Enter your pin</h5>
+
+                <div class="pincode-group">
+                    <!-- Pincode is stored here -->
+                    <input id="loadWalletPincode" autocomplete="off" style="display: none;">
+
+                    <!-- Ignore below! Get pincode from above input-->
+                    <input id="pin1" autocomplete="off" class="pincodeInput" type="text">
+                    <input id="pin2" autocomplete="off" class="pincodeInput" type="text">
+                    <input id="pin3" autocomplete="off" class="pincodeInput" type="text">
+                    <input id="pin4" autocomplete="off" class="pincodeInput" type="text">
+                    <input id="pin5" autocomplete="off" class="pincodeInput" type="text">
+                    <input id="pin6" autocomplete="off" class="pincodeInput" type="text">
+                </div>
+
+                <br>
+
+                <button style="width: 50%;" class="button primary" href="#">Load</button>
+
+            </center>
+        </div>
+
+        <div class="card">
+            <center>
+                <h2> Create Wallet: </h2>
+            </center>
+            <br>
+            <form id="createwallet">
+                <h5 class="grey"> Choose Wallet name: </h5>
+                <div class="inputGroup">
+                    <input id="walletName" type="text" class="amount" autocomplete="off">
+                    <div class="amountSuffix" onclick='document.getElementById("walletName").value = ""; document.getElementById("walletName").focus();'>
+                        <i data-feather="x-circle"></i>
+                    </div>
+                </div>
+
+                <br>
+
+                <h5 class="grey"> Choose your pin: </h5>
+
+                <div class="pincode-group choose">
+                    <!-- Pincode is stored here -->
+                    <input id="createWalletPincode" autocomplete="off" style="display: none;">
+
+                    <!-- Ignore below! Get pincode from above input-->
+                    <input id="pinc1" autocomplete="off" class="pincodeInput" type="text">
+                    <input id="pinc2" autocomplete="off" class="pincodeInput" type="text">
+                    <input id="pinc3" autocomplete="off" class="pincodeInput" type="text">
+                    <input id="pinc4" autocomplete="off" class="pincodeInput" type="text">
+                    <input id="pinc5" autocomplete="off" class="pincodeInput" type="text">
+                    <input id="pinc6" autocomplete="off" class="pincodeInput" type="text">
+                </div>
+
+                <p><b>NOTE:</b> A pin must be 6 numbers long and is used to unlock your wallet, if you foget your pin you will loose access to your wallet <u><i>forever</i></u></p>
+                <br><br>
+            </form>
+
+            <center>
+                <button onclick="gocreatewallet()" style="width: 50%;" class="button primary" href="#">Create</button>
+            </center>
+
+        </div>
+
+        <div class="card">
+            <center>
+                <h2> Load Wallet From a Private Key: </h2>
+            </center>
+            <br>
+            <form id="viapk">
+                <h5 class="grey">Enter your private key: </h5>
+                <div class="inputGroup">
+                    <input id="privKey" type="text" class="amount" autocomplete="off" minlength="116" maxlength="116">
+                    <div class="amountSuffix" onclick='document.getElementById("privKey").value = ""; document.getElementById("privKey").focus();'>
+                        <i data-feather="x-circle"></i>
+                    </div>
+                </div>
+            </form>
+            <!--pk should be 116 bytes long, example: GD8M1Qm17WXoukx8QqqfvYoLtAXP6CrXUcAADbBN3K2v2PdYfZUz8fdw3h5kHoAzETVtJaBd8759wYoNgxxgQZGrU3Yi7g2RDroBMjKZztoxz4htyacE -->
+            <br>
+            <center>
+                <button onclick="goviapk()" style="width: 50%;" class="button primary" href="#">Load</button>
+            </center>
+        </div>
+    </div>
+    <p id="test"></p>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="src/js/components.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <script>
+        pinCodeStart();
+        feather.replace();
+    </script>
+</body>
+
 </html>

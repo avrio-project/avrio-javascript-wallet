@@ -14,14 +14,24 @@ const months = [
     'Nov',
     'Dec'
 ];
-function getBalance(publicKey) {
-    return 10; // todo
+
+async function getBalance(publicKey) {
+    try {
+        const response = await fetch(wallet.nodeip + `/balance/${publicKey}`);
+        const myJson = await response.json();
+        console.log(myJson);
+        return myJson['balance'];
+    } catch (error) {
+        console.log("Error: " + error);
+    }
 }
+
 function getWallet() {
     return localstorage.getItem("Wallet");
 }
+
 function getKeys(wallet) {
-    let keys = ["",""];
+    let keys = ["", ""];
     keys[0] = localStorage.getItem("publicKey");
     keys[1] = localStorage.getItem("privateKey");
 }
@@ -45,14 +55,14 @@ var wallet = new Vue({
             usd: '$',
             eur: '€'
         },
-        
+
         showSettings: false,
         showSend: false,
     }
 })
 
-Vue.component('settings-modal',{
-    props: ['username','nodeip','currency'],
+Vue.component('settings-modal', {
+    props: ['username', 'nodeip', 'currency'],
     template: `<div id="settings">
                 <div class="card">
                     <div class="top-right">
@@ -126,8 +136,8 @@ Vue.component('settings-modal',{
 
                 </div>
             </div>`,
-    data: function(){
-        return{
+    data: function() {
+        return {
             showRegUsername: false,
             usernameStatus: 0, // 0-Username not checked, 1-Username not available 2-Username available
             regFailed: false,
@@ -135,42 +145,39 @@ Vue.component('settings-modal',{
             nodeChangeFail: false
         }
     },
-    methods:{
-        chooseUsername: function(){
-            if(checkUsernameAvailability(document.getElementById('chooseUsername').value)){
+    methods: {
+        chooseUsername: function() {
+            if (checkUsernameAvailability(document.getElementById('chooseUsername').value)) {
                 this.usernameStatus = 2;
-            }
-            else{
+            } else {
                 this.usernameStatus = 1;
             }
         },
-        currencies: function(){
+        currencies: function() {
             return wallet.currencyCodes;
         },
-        currencySymbol: function(code){
-            return wallet.currencySymbols[code];  
+        currencySymbol: function(code) {
+            return wallet.currencySymbols[code];
         },
-        changeCurrency: function(){
+        changeCurrency: function() {
             changeCurrency(document.getElementById('pickCurrency').value);
         },
-        isCurrent: function(code){
-            if(wallet.currencyCode == code){
+        isCurrent: function(code) {
+            if (wallet.currencyCode == code) {
                 return "selected";
-            }
-            else{
+            } else {
                 return "";
             }
         },
-        registerUsername: function(){
-            if(!registerUsername(document.getElementById('chooseUsername').value)){
-                this.regFailed = true;    
+        registerUsername: function() {
+            if (!registerUsername(document.getElementById('chooseUsername').value)) {
+                this.regFailed = true;
             }
         },
-        changeNode: function(){
-            if(!changeNode(document.getElementById('chooseNode').value)){
+        changeNode: function() {
+            if (!changeNode(document.getElementById('chooseNode').value)) {
                 this.nodeChangeFail = true;
-            }
-            else{
+            } else {
                 this.nodeChanged = false;
             }
         }
@@ -178,7 +185,7 @@ Vue.component('settings-modal',{
 
 })
 
-Vue.component('send-modal',{
+Vue.component('send-modal', {
     props: ['currency'],
     template: `            
         <div id="sendFunds">
@@ -253,8 +260,8 @@ Vue.component('send-modal',{
                     <h5 style="color: rgb(var(--danger)); margin-top: 20px;"><b v-if="sendWarning">Warning, estimated gas exceeds max gas!</b></h5>
                 </div>
             </div>`,
-    data: function(){
-        return{
+    data: function() {
+        return {
             advancedOptions: false,
             recipient: "",
             sendCurrency: "aio",
@@ -268,32 +275,30 @@ Vue.component('send-modal',{
         }
     },
     methods: {
-        currencies: function(){
+        currencies: function() {
             return wallet.currencyCodes;
         },
-        currencySymbol: function(code){
-            return wallet.currencySymbols[code];  
+        currencySymbol: function(code) {
+            return wallet.currencySymbols[code];
         },
-        aioprice: function(){
+        aioprice: function() {
             return wallet.aioprice;
         },
-        num2dp: function(num){
+        num2dp: function(num) {
             return num2dp(num);
         },
-        updateEstimate: function(){
-             
-            if((this.sendAmount > wallet.balaio * wallet.aioprice) && (this.sendCurrency == "fiat")){
-                this.insufficient = true;   
-            }
-            else if((this.sendAmount > wallet.balaio) && (this.sendCurrency == "aio")){
-                this.insufficient = true;   
-            }
-            else{
+        updateEstimate: function() {
+
+            if ((this.sendAmount > wallet.balaio * wallet.aioprice) && (this.sendCurrency == "fiat")) {
+                this.insufficient = true;
+            } else if ((this.sendAmount > wallet.balaio) && (this.sendCurrency == "aio")) {
+                this.insufficient = true;
+            } else {
                 this.insufficient = false;
             }
-        
+
             if (this.message.length > 100) {
-                this.message = this.message.substring(0,100);
+                this.message = this.message.substring(0, 100);
             }
             let gasEstimation = ((2000 + (this.message.length * 60)) / 100);
             this.estimate = gasEstimation * this.gasPrice;
@@ -301,24 +306,24 @@ Vue.component('send-modal',{
                 this.sendWarning = true;
             } else {
                 this.sendWarning = false;
-            } 
+            }
         }
     },
-    beforeMount(){
+    beforeMount() {
         this.updateEstimate();
     }
 })
 
 const refreshInterval = 60 * 2.5; // refresh every 2 and a half mins
 
-wallet.balaio = getBalance(publicKey);
- let keys = getKeys();
+wallet.balaio = getBalance(keys[0]) / 10000;
+let keys = getKeys();
 let publicKey = keys[0];
 let privateKey = keys[1];
 
 function refresh() {
     let keysT = getKeys();
-    getBalance(keysT[0]);
+    wallet.balaio = getBalance(keys[0]) / 10000;
     let txns = getTxns(keysT[0]);
     for (let i = 0; i <= txns.length; i++) {
         addTransaction(txns[i]);
@@ -326,7 +331,7 @@ function refresh() {
 }
 
 wallet.balfiat = wallet.aioprice * wallet.balaio;
-wallet.balfiat = (Math.round(wallet.balfiat*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
+wallet.balfiat = (Math.round(wallet.balfiat * Math.pow(10, 2)) / Math.pow(10, 2)).toFixed(2)
 
 
 //Adds transaction to list    
@@ -346,22 +351,22 @@ function addTransaction(type, party, timestamp, amountio) {
     let time = `${date} ${month} ${year} ${hour}:${min}:${sec}`;
 
     if (type == 'sent') {
-        document.getElementById('transactionList').innerHTML = '<div class="transaction"> <div class="transaction-icon"> <i class="fixicon" data-feather="arrow-up-right"></i> </div><div> <h4><b>' + party + '</b></h4> <h5 class="grey">' + time + '</h5> </div><div class="transaction-right"> <h4 class="danger nobottom"><b>-' + amountio + ' AIO</b></h4> <h5 class="grey transaction-label">-' + currencySymbols[currencyCode] + (Math.round(amountfiat*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) + ' ' + currencyCode.toUpperCase() + '</h5> </div></div>' + document.getElementById('transactionList').innerHTML;
+        document.getElementById('transactionList').innerHTML = '<div class="transaction"> <div class="transaction-icon"> <i class="fixicon" data-feather="arrow-up-right"></i> </div><div> <h4><b>' + party + '</b></h4> <h5 class="grey">' + time + '</h5> </div><div class="transaction-right"> <h4 class="danger nobottom"><b>-' + amountio + ' AIO</b></h4> <h5 class="grey transaction-label">-' + currencySymbols[currencyCode] + (Math.round(amountfiat * Math.pow(10, 2)) / Math.pow(10, 2)).toFixed(2) + ' ' + currencyCode.toUpperCase() + '</h5> </div></div>' + document.getElementById('transactionList').innerHTML;
     } else {
-        document.getElementById('transactionList').innerHTML = '<div class="transaction"> <div class="transaction-icon green"> <i class="fixicon" data-feather="arrow-down-left"></i> </div><div> <h4><b>' + party + '</b></h4> <h5 class="grey">' + time + '</h5> </div><div class="transaction-right"> <h4 class="success"><b>+' + amountio + ' AIO</b></h4> <h5 class="grey transaction-label">+' + currencySymbols[currencyCode] + (Math.round(amountfiat*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) + ' ' + currencyCode.toUpperCase() + '</h5> </div></div></div>' + document.getElementById('transactionList').innerHTML;
+        document.getElementById('transactionList').innerHTML = '<div class="transaction"> <div class="transaction-icon green"> <i class="fixicon" data-feather="arrow-down-left"></i> </div><div> <h4><b>' + party + '</b></h4> <h5 class="grey">' + time + '</h5> </div><div class="transaction-right"> <h4 class="success"><b>+' + amountio + ' AIO</b></h4> <h5 class="grey transaction-label">+' + currencySymbols[currencyCode] + (Math.round(amountfiat * Math.pow(10, 2)) / Math.pow(10, 2)).toFixed(2) + ' ' + currencyCode.toUpperCase() + '</h5> </div></div></div>' + document.getElementById('transactionList').innerHTML;
     }
 
     feather.replace();
 }
 
 //Converts number to 2dp
-function num2dp(num){
-    return (Math.round(num*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
+function num2dp(num) {
+    return (Math.round(num * Math.pow(10, 2)) / Math.pow(10, 2)).toFixed(2);
 }
 
 //Settings page
 
-function hasUsername(){
+function hasUsername() {
     //Returns boolean (whether user has registered a usernme)
     if (localStorage.hasOwnProperty("username")) {
         return 1;
@@ -371,20 +376,20 @@ function hasUsername(){
 
 }
 // TODO :
-function checkUsernameAvailability(username){
+function checkUsernameAvailability(username) {
     //Returns true if the username username is available to register
     return Math.random() >= 0.5; //Random bool
 }
 
-function registerUsername(username){
+function registerUsername(username) {
     //Registers the username
     //Return true on success
     return false;
 }
 
-function changeCurrency(code){
+function changeCurrency(code) {
     //Changes the user's fiat currency to code
-    if(wallet.currencyCodes.includes(code)){
+    if (wallet.currencyCodes.includes(code)) {
         //Change user's currency
         wallet.currencyCode = code;
         wallet.aioprice = 0.87; //Price of new currency
@@ -392,16 +397,15 @@ function changeCurrency(code){
 }
 // END TODO;
 
-function changeNode(newNode){
+function changeNode(newNode) {
     //Changes to the user's preferred node
     wallet.nodeip = newNode;
     return true; //Return true if successfully changed
 }
 
-function getCurrentNode(){
+function getCurrentNode() {
     //Returns the node the user has currently chosen
     return wallet.nodeip;
 }
 
 // END TODO;
-
